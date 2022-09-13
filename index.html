@@ -1,13 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Processamento de Imagens</title>
+    <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
-    <canvas style="max-width:100vw; max-height:100vh" id="canvas"></canvas>
+
+    <header class="titulo-principal">
+        <h1>Atividade de processamento de Imagens</h1>
+    </header>
+
+    <section>
+        <form action='' method='POST' enctype='multipart/form-data'>
+            <input type='file' name='userFile' id="input-files"><br>
+            <input type='submit' name='upload_btn' value='upload'>
+        </form>
+        
+
+        <canvas style="max-width:100vw; max-height:100vh" id="canvas"></canvas>
+
+    </section>
+
 </body>
 <script src="negativeImage.js"></script>
+<script src="getImg.js"></script>
 </html>
