@@ -21,6 +21,7 @@ const maskGrayScale =
     0.299, 0.587, 0.114
   ];
 
+  
 function medianFilter(data, { mask, width, height }) {
   const maskSize = Math.sqrt(mask.length);
   const halfMaskSize = Math.floor(maskSize / 2);

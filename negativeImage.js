@@ -49,26 +49,58 @@ const maskTest =
    2.0,  4.0,  20.0,
   +10.0, +2.0, +1.0
 ];
-var imageObj = new Image();
+let width = 0
+let height = 0
 
 
 function transformImage(){
-  var canvasColor = context.getImageData(0, 0, imageObj.width, imageObj.height);
+  var canvasColor = context.getImageData(0, 0, width, height);
   
   const c = 255/Math.log(1+getMax(canvasColor.data))
   console.log("c",canvasColor)
   console.log("c",canvasColor)
-  medianFilter(canvasColor.data,{mask:maskTest,width:imageObj.width,height:imageObj.height})
+  medianFilter(canvasColor.data,{mask:maskTest,width:width,height:height})
  //laplacian(canvasColor.data,{mask:sobel_h,width:imageObj.width})
 //transformImage(canvasColor.data, laplacian,{mask:sobel_h,width:imageObj.width});
   context.putImageData(canvasColor, 0, 0);
 }
 
-function addImageInCanvas(url){
 
+const addImageInCanvasObject={
+  "image/tiff":  ({url}) =>{
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'arraybuffer';
+    xhr.open('GET', url);
+    xhr.onload = function (e) {
+      var tiff = new Tiff({buffer: xhr.response});
+      width = tiff.width();
+      height = tiff.height();
+      var canvasTif = tiff.toCanvas();
+      console.log("tiff",canvasTif)
+      if (canvasTif) {
+        document.body.append(canvas);
+        const contextTiff = canvasTif.getContext("2d");
+        var canvasColor = contextTiff.getImageData(0, 0,width,height);
+        context.putImageData(canvasColor, 0, 0);
+
+      }
+    };
+    xhr.send();}
+}
+
+function addImageInCanvas({url,type}){
+  const existFunction = addImageInCanvasObject[type]
+  if(existFunction){
+    existFunction({url})
+    return
+  }
+
+  const imageObj = new Image();
   imageObj.onload = function () {
     canvas.width = imageObj.width
     canvas.height = imageObj.height
+    width = imageObj.width
+    height = imageObj.height
     context.drawImage(imageObj, 0, 0);
     transformImage()
   };

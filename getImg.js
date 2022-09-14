@@ -3,5 +3,6 @@ inputfiles.addEventListener("change",function(a){
     console.log(a.target.files[0].name);
     const getFile = a.target.files[0];
     const urlFiles = URL.createObjectURL(getFile);
-    addImageInCanvas(urlFiles)
+    console.log(getFile)
+    addImageInCanvas({url:urlFiles,type:getFile.type})
 }) 
