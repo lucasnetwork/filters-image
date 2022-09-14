@@ -79,6 +79,8 @@ const addImageInCanvasObject={
       if (canvasTif) {
         const contextTiff = canvasTif.getContext("2d");
         var canvasColor = contextTiff.getImageData(0, 0,width,height);
+        canvas.width = width
+        canvas.height = height
         context.putImageData(canvasColor, 0, 0);
 
       }
