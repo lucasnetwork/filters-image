@@ -1,8 +1,4 @@
 //make Spatial Smoothing Filters with canvas
-
-const canvas = document.getElementById("canvas");
-const context = canvas.getContext("2d");
-
 const maskSpatialSmoothing =
   [
     1.0, 1.0, 1.0,
@@ -26,8 +22,6 @@ const maskGrayScale =
   ];
 
 function medianFilter(data, { mask, width, height }) {
-  const newImageData = context.createImageData(width, height);
-  const newData = data;
   const maskSize = Math.sqrt(mask.length);
   const halfMaskSize = Math.floor(maskSize / 2);
 
@@ -74,17 +68,3 @@ function averageFilter(data, { mask, width, height }) {
     data[i + 3] = 255;
   }
 }
-
-var img = new Image();
-
-img.onload = function () {
-  canvas.width = img.width;
-  canvas.height = img.height;
-  context.drawImage(img, 0, 0);
-  const imageData = context.getImageData(0, 0, img.width, img.height);
-  const data = imageData.data;
-  averageFilter(data, { mask: maskSpatialSmoothing, width: img.width, height: img.height });
-  context.putImageData(imageData, 0, 0);
-}
-
-img.src = "https://mdn.mozillademos.org/files/5395/backdrop.png";
