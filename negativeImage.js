@@ -69,24 +69,28 @@ function suavizacao_mediaTeste(data,options){
     }
 }
 
+function addImageInCanvas(url){
 
+  var imageObj = new Image();
+  imageObj.onload = function () {
+    canvas.width = imageObj.width
+    canvas.height = imageObj.height
+    context.drawImage(imageObj, 0, 0);
+  };
+  imageObj.src = url;
+  
+}
 
-
-var imageObj = new Image();
-imageObj.onload = function () {
-  canvas.width = imageObj.width
-  canvas.height = imageObj.height
-  context.drawImage(imageObj, 0, 0);
+function transformImage(){
   var canvasColor = context.getImageData(0, 0, imageObj.width, imageObj.height);
-
+  
   const c = 255/Math.log(1+getMax(canvasColor.data))
   console.log("c",canvasColor)
   //suavizacao_media(canvasColor.data,{mask:maskTest,width:imageObj.width,height:imageObj.height})
   console.log("c",canvasColor)
 
  // suavizacao_mediaTeste(canvasColor.data,{width:canvasColor.width,mask:maskTest})
- laplacian(canvasColor.data,{mask:sobel_h,width:imageObj.width})
-  //transformImage(canvasColor.data, laplacian,{mask:sobel_h,width:imageObj.width});
+ //laplacian(canvasColor.data,{mask:sobel_h,width:imageObj.width})
+//transformImage(canvasColor.data, laplacian,{mask:sobel_h,width:imageObj.width});
   context.putImageData(canvasColor, 0, 0);
-};
-imageObj.src = "test.jpg";
+}
