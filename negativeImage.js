@@ -26,7 +26,7 @@ function transformImage(data, func,options) {
 }
 
 function getMax(arr) {
-  return arr.reduce((max, v) => max >= v ? max : v, -Infinity);
+  return arr.reduce((max, v) => max >= v ? max : v, 0);
 }
 
 const sobel_v =
@@ -52,37 +52,6 @@ const maskTest =
 
 
 
-//teste
-function conv3x(data, idx, w, m){
-  return (m[0]*data[idx - w - 4] + m[1]*data[idx - 4] + m[2]*data[idx + w - 4]
-      -m[0]*data[idx - w + 4] - m[1]*data[idx + 4] - m[2]*data[idx + 4 + 4]);
-}
-
-function conv3y(data, idx, w, m){
-  return (m[0]*data[idx - w - 4] + m[1]*data[idx - w] + m[2]*data[idx - w + 4]
-      -(m[0]*data[idx + w - 4] + m[1]*data[idx + w] + m[2]*data[idx + w + 4]));
-}
-
-
-/**
-* @param pixels - Object of image parameters
-* @param mask - gradient operator e.g. Prewitt, Sobel, Scharr, etc. 
-*/
-function gradient_internal(pixels, {mask,width}){
-  var data = pixels;
-  var w = width*4;
-  var l = data.length - w - 4;
-  var buff = new data.constructor(new ArrayBuffer(data.length));
-  
-  for (var i = w + 4; i < l; i+=4){
-    var dx = conv3x(data, i, w, mask);
-    var dy = conv3y(data, i, w, mask);
-    buff[i] = buff[i + 1] = buff[i + 2] = Math.sqrt(dx*dx + dy*dy);
-    buff[i + 3] = 255;
-  }
-  pixels.set(buff);
-}
-
 function suavizacao_media(pixels, {mask,width,height}){
   for(let i = 1; i<= width;i++){
     for(let j=1; j<= height;j++){
@@ -90,17 +59,6 @@ function suavizacao_media(pixels, {mask,width,height}){
       pixels[i*width+j] = temp
     }
   }
-}
-
-
-//teste final
-
-function laplacian(data,options){
-  pixesl = [...data]
-    gradient_internal(data,options);
-    for(let i =0;i <pixesl.length;i++){
-     data[i] = pixesl[i] +data[i]
-    }
 }
 
 function suavizacao_mediaTeste(data,options){
@@ -111,21 +69,28 @@ function suavizacao_mediaTeste(data,options){
     }
 }
 
+function addImageInCanvas(url){
 
-var imageObj = new Image();
-imageObj.onload = function () {
-  canvas.width = imageObj.width
-  canvas.height = imageObj.height
-  context.drawImage(imageObj, 0, 0);
+  var imageObj = new Image();
+  imageObj.onload = function () {
+    canvas.width = imageObj.width
+    canvas.height = imageObj.height
+    context.drawImage(imageObj, 0, 0);
+  };
+  imageObj.src = url;
+  
+}
+
+function transformImage(){
   var canvasColor = context.getImageData(0, 0, imageObj.width, imageObj.height);
-
+  
   const c = 255/Math.log(1+getMax(canvasColor.data))
   console.log("c",canvasColor)
-  suavizacao_media(canvasColor.data,{mask:maskTest,width:imageObj.width,height:imageObj.height})
+  //suavizacao_media(canvasColor.data,{mask:maskTest,width:imageObj.width,height:imageObj.height})
   console.log("c",canvasColor)
 
  // suavizacao_mediaTeste(canvasColor.data,{width:canvasColor.width,mask:maskTest})
-  //transformImage(canvasColor.data, laplacian,{gama:0.3,constant:c});
+ //laplacian(canvasColor.data,{mask:sobel_h,width:imageObj.width})
+//transformImage(canvasColor.data, laplacian,{mask:sobel_h,width:imageObj.width});
   context.putImageData(canvasColor, 0, 0);
-};
-imageObj.src = "test.jpg";
+}
