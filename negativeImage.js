@@ -76,9 +76,7 @@ const addImageInCanvasObject={
       width = tiff.width();
       height = tiff.height();
       var canvasTif = tiff.toCanvas();
-      console.log("tiff",canvasTif)
       if (canvasTif) {
-        document.body.append(canvas);
         const contextTiff = canvasTif.getContext("2d");
         var canvasColor = contextTiff.getImageData(0, 0,width,height);
         context.putImageData(canvasColor, 0, 0);
