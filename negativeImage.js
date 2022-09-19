@@ -29,6 +29,17 @@ function getMax(arr) {
   return arr.reduce((max, v) => max >= v ? max : v, 0);
 }
 
+function calculeGame(array){
+return 255/Math.log(1+getMax(array))
+}
+
+function executeLogarimitFilter({data}){
+  const constant = calculeGame(data)
+  transformImageFor({data,func:logarithmicRgb,options:{
+    constant
+  }})
+}
+
 const sobel_v =
 [
   -1.0, 0.0, +1.0,
@@ -72,11 +83,14 @@ const filters = {
     filterFunctionOptions:{
       mask:sobel_v,
     }
+  },
+  logarithmic:{
+    filterFunction:executeLogarimitFilter
   }
 }
 
 function getDataImage(){
-  transformImage(filters.laplacian)
+  transformImage(filters.logarithmic)
 
   //var canvasColor = context.getImageData(0, 0, width, height);
   
