@@ -59,7 +59,7 @@ function transformImage({filterFunction,filterFunctionOptions}){
   context.putImageData(canvasColor, 0, 0);
 }
 
-const filters = {
+const filtersPureFunctions = {
   negative:{
     filterFunction:transformImageFor,
     filterFunctionOptions:{
@@ -91,15 +91,21 @@ const filters = {
   }
 }
 
-function getDataImage(){
-// slicingByBitWithOpencv('canvas')
-  transformImage(filters.bitSlicing)
-
-  //var canvasColor = context.getImageData(0, 0, width, height);
+function transformImageOpenCV({type}){
   
-  //const c = 255/Math.log(1+getMax(canvasColor.data))
-  //medianFilter(canvasColor.data,{mask:maskTest,width:width,height:height})
- //laplacian(canvasColor.data,{mask:sobel_h,width:imageObj.width})
-//transformImage(canvasColor.data, laplacian,{mask:sobel_h,width:imageObj.width});
+}
+
+const filter={
+  'pure':({type})=>{
+    transformImage(filtersPureFunctions[type])
+
+  },
+  __default__:({type})=>{
+
+  }
+}
+
+function getDataImage({type,typeFunction}){
+  filter[type]({type:typeFunction})
 }
 
