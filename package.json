@@ -1,0 +1,11 @@
+{
+  "name": "procimages",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:lucasnetwork/filters-image.git",
+  "author": "Lucas Santos Ribeiro <lucassr45@protonmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^20.1.4"
+  }
+}
