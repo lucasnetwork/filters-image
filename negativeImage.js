@@ -5,10 +5,6 @@ function negativergb(pixel) {
   return 255 - pixel;
 }
 
-function logarithmicRgb(pixel,{constant}) {
-  return constant*Math.log(pixel + 1);
-}
-
 function potencia(pixel,{gama,constant}){
   return constant*Math.pow(pixel,gama)
 } 
@@ -23,21 +19,6 @@ function transformImageFor({data, func,options}) {
     data[t + 1] = func(data[t + 1],options);
     data[t + 2] = func(data[t + 2],options);
   }
-}
-
-function getMax(arr) {
-  return arr.reduce((max, v) => max >= v ? max : v, 0);
-}
-
-function calculeGame(array){
-return 255/Math.log(1+getMax(array))
-}
-
-function executeLogarimitFilter({data}){
-  const constant = calculeGame(data)
-  transformImageFor({data,func:logarithmicRgb,options:{
-    constant
-  }})
 }
 
 const sobel_v =
@@ -60,6 +41,7 @@ const maskTest =
    2.0,  4.0,  20.0,
   +10.0, +2.0, +1.0
 ];
+
 let width = 0
 let height = 0
 
