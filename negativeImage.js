@@ -17,7 +17,7 @@ function bitplaneSlicing(pixel, { bitplane }) {
   return pixel >> bitplane & 1;
 }
 
-function transformImage(data, func,options) {
+function transformImageFor({data, func,options}) {
   for (var t = 0; t < data.length; t += 4) {
     data[t] = func(data[t],options);
     data[t + 1] = func(data[t + 1],options);
@@ -53,16 +53,37 @@ let width = 0
 let height = 0
 
 
-function transformImage(){
-  var canvasColor = context.getImageData(0, 0, width, height);
+function transformImage({filterFunction,filterFunctionOptions}){
+  const canvasColor = context.getImageData(0, 0, width, height);
+  filterFunction({data:canvasColor.data,...filterFunctionOptions,width,height})
+  context.putImageData(canvasColor, 0, 0);
+}
+
+const filters = {
+  negative:{
+    filterFunction:transformImageFor,
+    filterFunctionOptions:{
+      func:negativergb,
+      options:{}
+    }
+  },
+  laplacian:{
+    filterFunction:laplacian,
+    filterFunctionOptions:{
+      mask:sobel_v,
+    }
+  }
+}
+
+function getDataImage(){
+  transformImage(filters.laplacian)
+
+  //var canvasColor = context.getImageData(0, 0, width, height);
   
-  const c = 255/Math.log(1+getMax(canvasColor.data))
-  console.log("c",canvasColor)
-  console.log("c",canvasColor)
-  medianFilter(canvasColor.data,{mask:maskTest,width:width,height:height})
+  //const c = 255/Math.log(1+getMax(canvasColor.data))
+  //medianFilter(canvasColor.data,{mask:maskTest,width:width,height:height})
  //laplacian(canvasColor.data,{mask:sobel_h,width:imageObj.width})
 //transformImage(canvasColor.data, laplacian,{mask:sobel_h,width:imageObj.width});
-  context.putImageData(canvasColor, 0, 0);
 }
 
 
@@ -102,8 +123,10 @@ function addImageInCanvas({url,type}){
     width = imageObj.width
     height = imageObj.height
     context.drawImage(imageObj, 0, 0);
-    transformImage()
+    getDataImage()
   };
   imageObj.src = url;
   
 }
+
+
