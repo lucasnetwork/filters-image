@@ -5,10 +5,6 @@ function negativergb(pixel) {
   return 255 - pixel;
 }
 
-function potencia(pixel,{gama,constant}){
-  return constant*Math.pow(pixel,gama)
-} 
-
 function bitplaneSlicing(pixel, { bitplane }) {
   return pixel >> bitplane & 1;
 }
@@ -68,11 +64,14 @@ const filters = {
   },
   logarithmic:{
     filterFunction:executeLogarimitFilter
+  },
+  potencia:{
+    filterFunction:executePotenciaFilter
   }
 }
 
 function getDataImage(){
-  transformImage(filters.logarithmic)
+  transformImage(filters.potencia)
 
   //var canvasColor = context.getImageData(0, 0, width, height);
   
@@ -81,48 +80,4 @@ function getDataImage(){
  //laplacian(canvasColor.data,{mask:sobel_h,width:imageObj.width})
 //transformImage(canvasColor.data, laplacian,{mask:sobel_h,width:imageObj.width});
 }
-
-
-const addImageInCanvasObject={
-  "image/tiff":  ({url}) =>{
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'arraybuffer';
-    xhr.open('GET', url);
-    xhr.onload = function (e) {
-      var tiff = new Tiff({buffer: xhr.response});
-      width = tiff.width();
-      height = tiff.height();
-      var canvasTif = tiff.toCanvas();
-      if (canvasTif) {
-        const contextTiff = canvasTif.getContext("2d");
-        var canvasColor = contextTiff.getImageData(0, 0,width,height);
-        canvas.width = width
-        canvas.height = height
-        context.putImageData(canvasColor, 0, 0);
-
-      }
-    };
-    xhr.send();}
-}
-
-function addImageInCanvas({url,type}){
-  const existFunction = addImageInCanvasObject[type]
-  if(existFunction){
-    existFunction({url})
-    return
-  }
-
-  const imageObj = new Image();
-  imageObj.onload = function () {
-    canvas.width = imageObj.width
-    canvas.height = imageObj.height
-    width = imageObj.width
-    height = imageObj.height
-    context.drawImage(imageObj, 0, 0);
-    getDataImage()
-  };
-  imageObj.src = url;
-  
-}
-
 
