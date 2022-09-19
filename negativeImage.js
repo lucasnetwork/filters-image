@@ -5,8 +5,19 @@ function negativergb(pixel) {
   return 255 - pixel;
 }
 
-function bitplaneSlicing(pixel, { bitplane }) {
-  return pixel >> bitplane & 1;
+function bitplaneSlicing(pixel, { bitplane=0 }) {
+  const bits = []
+  for (var i = 7; i >= 0; i--) {
+    var bit = pixel & (1 << i) ? 1 : 0;
+    bits.push(bit);
+ }
+
+ for(var i = 7; i >= 0 ; i--){
+  if(i === bitplane){
+    bits[i] = 0
+  }
+ }
+ return parseInt(bits.join(""),2)
 }
 
 function transformImageFor({data, func,options}) {
@@ -67,11 +78,22 @@ const filters = {
   },
   potencia:{
     filterFunction:executePotenciaFilter
+  },
+  bitSlicing:{
+    filterFunction:transformImageFor ,
+    filterFunctionOptions:{
+      func:bitplaneSlicing,
+      options:{
+        bitplane:0,
+
+      }
+    }
   }
 }
 
 function getDataImage(){
-  transformImage(filters.potencia)
+// slicingByBitWithOpencv('canvas')
+  transformImage(filters.bitSlicing)
 
   //var canvasColor = context.getImageData(0, 0, width, height);
   
