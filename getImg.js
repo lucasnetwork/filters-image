@@ -21,6 +21,7 @@ const addImageInCanvasObject={
           canvas.width = width
           canvas.height = height
           context.putImageData(canvasColor, 0, 0);
+          getDataImage({type:"openCV",typeFunction:"highBoost"})
   
         }
       };
@@ -41,7 +42,7 @@ const addImageInCanvasObject={
       width = imageObj.width
       height = imageObj.height
       context.drawImage(imageObj, 0, 0);
-      getDataImage({type:"openCV",typeFunction:"localHistogram"})
+      getDataImage({type:"openCV",typeFunction:"highBoost"})
     };
     imageObj.src = url;
     

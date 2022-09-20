@@ -105,7 +105,7 @@ const filtersOpenCv = {
 function templateFilterImagesByOpenCv({idCanvas,type}){
   let src = cv.imread(idCanvas);
   let dst = new cv.Mat();
-  filtersOpenCv[type]({src,dst,boost_factor:2})
+  filtersOpenCv[type]({src,dst,boost_factor:1})
   cv.imshow(idCanvas, dst);
   src.delete();
   dst.delete();
