@@ -1,0 +1,7 @@
+[{
+    "name":"highBoost",
+    "value":{
+        "type":"openCV",
+        "typeFunction":"highBoost"
+    }
+}]
