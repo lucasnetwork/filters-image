@@ -36,7 +36,6 @@ function conv3x(data, idx, w, m){
   
   function laplacian({data,...rest}){
     pixesl = [...data]
-    console.log(rest)
       gradient_internal(data,rest);
     for(let i =0;i <pixesl.length;i++){
     data[i] = pixesl[i] +data[i]

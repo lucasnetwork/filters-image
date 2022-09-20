@@ -38,7 +38,7 @@ const addImageInCanvasObject={
       width = imageObj.width
       height = imageObj.height
       context.drawImage(imageObj, 0, 0);
-      getDataImage({type:"openCV",typeFunction:"negative"})
+      getDataImage({type:"openCV",typeFunction:"localHistogram"})
     };
     imageObj.src = url;
     

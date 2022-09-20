@@ -1,6 +1,5 @@
 
 function highBoostFilterWithOpencv({src,dst:highboost,boost_factor}) {
-  const src = cv.imread('canvas');
   const kernel = new cv.Mat(3, 3, cv.CV_32FC1);
   let ksize = new cv.Size(3, 3);
   cv.GaussianBlur(src, dst, ksize, 0, 0, cv.BORDER_DEFAULT);
