@@ -1,4 +1,4 @@
-import {calculeGame} from '../utils.js'
+import {calculeGame} from '../utils/functions.js'
 
 function logarithmicRgb(pixel,{constant}) {
     return constant*Math.log(pixel + 1);

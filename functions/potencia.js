@@ -1,4 +1,4 @@
-import { calculeGame } from "../utils.js";
+import { calculeGame } from "../utils/functions.js";
 
 function potencia(pixel, { gama, constant }) {
   return constant * Math.pow(pixel, gama);
