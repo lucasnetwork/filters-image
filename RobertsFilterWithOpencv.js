@@ -1,4 +1,5 @@
 function RobertsFilterWithOpencv(image) {
+  console.log("RobertsFilterWithOpencv");
   const src = cv.imread(image);
   const dst = new cv.Mat();
   cv.cvtColor(src, src, cv.COLOR_RGBA2GRAY, 0);
