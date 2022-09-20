@@ -1,3 +1,5 @@
+import {calculeGame} from '../utils'
+
 function logarithmicRgb(pixel,{constant}) {
     return constant*Math.log(pixel + 1);
   }
