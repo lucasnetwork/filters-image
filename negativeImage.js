@@ -1,3 +1,8 @@
+import {laplacian} from './laplacian.js'
+import {logarimitFilter} from './functions/logatimic.js'
+import {potenciaFilter} from './functions/potencia.js'
+import {localHistogramFilter,globalHistogramFilter} from './functions/histogram.js'
+import {highBoostFilter} from './functions/highBoost.js'
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 
@@ -74,10 +79,10 @@ const filtersPureFunctions = {
     }
   },
   logarithmic:{
-    filterFunction:executeLogarimitFilter
+    filterFunction:logarimitFilter
   },
   potencia:{
-    filterFunction:executePotenciaFilter
+    filterFunction:potenciaFilter
   },
   bitSlicing:{
     filterFunction:transformImageFor ,
@@ -94,7 +99,7 @@ const filtersPureFunctions = {
 const filtersOpenCv = {
   localHistogram:localHistogramFilter,
   globalHistogram:globalHistogramFilter,
-  highBoostFilterWithOpencv:highBoostFilterWithOpencv
+  highBoost:highBoostFilter
 }
 
 function templateFilterImagesByOpenCv({idCanvas,type}){
@@ -116,7 +121,7 @@ const filter={
   }
 }
 
-function getDataImage({type,typeFunction}){
+export function getDataImage({type,typeFunction}){
   filter[type]({type:typeFunction})
 }
 

@@ -2,7 +2,7 @@ function logarithmicRgb(pixel,{constant}) {
     return constant*Math.log(pixel + 1);
   }
 
-function executeLogarimitFilter({data}){
+export function logarimitFilter({data}){
     const constant = calculeGame(data)
     transformImageFor({data,func:logarithmicRgb,options:{
       constant

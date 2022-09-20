@@ -1,6 +1,9 @@
-
+import {getDataImage} from './negativeImage.js'
 const inputfiles = document.getElementById ("input-files")
-
+const canvas = document.getElementById("canvas");
+const context = canvas.getContext("2d");
+let width =canvas.width
+let height =canvas.height
 
 const addImageInCanvasObject={
     "image/tiff":  ({url}) =>{

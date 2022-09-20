@@ -3,7 +3,7 @@ function potencia(pixel,{gama,constant}){
 } 
 
 
-function executePotenciaFilter({data,gama=1}){
+export function potenciaFilter({data,gama=1}){
     const constant = calculeGame(data)
     transformImageFor({data,func:potencia,options:{
       constant,
