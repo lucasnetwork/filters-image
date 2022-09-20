@@ -49,11 +49,11 @@ const maskTest =
   +10.0, +2.0, +1.0
 ];
 
-let width = 0
-let height = 0
+let width =canvas.width
+let height =canvas.height
 
 
-function transformImage({filterFunction,filterFunctionOptions}){
+function templateFilterImageByPureFunctions({filterFunction,filterFunctionOptions}){
   const canvasColor = context.getImageData(0, 0, width, height);
   filterFunction({data:canvasColor.data,...filterFunctionOptions,width,height})
   context.putImageData(canvasColor, 0, 0);
@@ -91,17 +91,28 @@ const filtersPureFunctions = {
   }
 }
 
-function transformImageOpenCV({type}){
-  
+const filtersOpenCv = {
+  localHistogram:localHistogramFilter,
+  globalHistogram:globalHistogramFilter,
+  highBoostFilterWithOpencv:highBoostFilterWithOpencv
+}
+
+function templateFilterImagesByOpenCv({idCanvas,type}){
+  let src = cv.imread(idCanvas);
+  let dst = new cv.Mat();
+  filtersOpenCv[type]({src,dst,boost_factor:2})
+  cv.imshow(idCanvas, dst);
+  src.delete();
+  dst.delete();
 }
 
 const filter={
   'pure':({type})=>{
-    transformImage(filtersPureFunctions[type])
+    templateFilterImageByPureFunctions(filtersPureFunctions[type])
 
   },
-  __default__:({type})=>{
-
+  openCV:({type})=>{
+    templateFilterImagesByOpenCv({idCanvas:'canvas',type})
   }
 }
 
