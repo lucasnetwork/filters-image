@@ -18,14 +18,37 @@
     </header>
 
     <section>
+        <div class="boxGeneral">
 
-        <canvas id="canvas"></canvas>
-    
+            <div class="boxCanvas">
+                <h1 class="titleBox">
+                    Imagem Original
+                </h1>
+                <canvas id="canvas"></canvas>
+            </div>
+            <p class="simbolResult">
+                =
+            </p>
+            <div class="boxCanvas">
+                <h1 class="titleBox">
+                    Imagem Processada
+                </h1>
+                <canvas id="canvas2"></canvas>
+            </div>
+        </div>
+
         <form action='' method='POST' enctype='multipart/form-data'>
             <input type='file' name='userFile' id="input-files"><br>
             <label for="input-files" id="nomeDaLabel">Choose a file</label>
         </form>
+
+        <select name="filtro" id="filtro">
+
+        </select>
+
+        <button id="btnProcessar">Processar</button>
     </section>
+
 
 </body>
 <script src="./utils/selects.js" type="module"></script>

@@ -1,44 +1,116 @@
 * {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    vertical-align: baseline;
-    box-sizing: border-box;
-
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  box-sizing: border-box;
 }
 
 .titulo-principal {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
-#canvas {
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    width: 800px;
-    border: 1px solid #000;
+section {
+  padding-bottom: 30px;
+}
 
+#canvas,
+#canvas2 {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 800px;
+  border: 1px solid #000;
 }
 
 #input-files {
-    display: none;
+  display: none;
 }
 #nomeDaLabel {
-    padding: 20px 10px;
-    background-color: #332;
-    color: #FFF;
-    text-transform: uppercase;
-    text-align: center;
-    margin-top: 10px;
-    cursor: pointer;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    width: 300px;
-    box-sizing: border-box;
+  padding: 20px 10px;
+  background-color: #332;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 10px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 300px;
+  box-sizing: border-box;
+}
+
+#filtro {
+  padding: 20px 10px;
+  background-color: rgb(195, 195, 142);
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 10px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 300px;
+  box-sizing: border-box;
+  transition: 0.5s ease-in-out;
+}
+
+#filtro:hover {
+  background-color: #000;
+}
+
+.boxCanvas {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.titleBox {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #000;
+}
+.boxGeneral {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-top: 30px;
+}
+
+.simbolResult {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  font-size: 90px;
+}
+#btnProcessar {
+  padding: 20px 10px;
+  background-color: rgb(195, 195, 142);
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 10px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 300px;
+  box-sizing: border-box;
+  transition: 0.5s ease;
+}
+
+#btnProcessar:hover {
+  background-color: #000;
 }
