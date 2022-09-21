@@ -2,8 +2,11 @@ import { getDataImage } from './negativeImage.js'
 const inputfiles = document.getElementById("input-files")
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
+const canvas2 = document.getElementById("canvas2");
+const context2 = canvas2.getContext("2d");
 let width = canvas.width
 let height = canvas.height
+
 
 const addImageInCanvasObject = {
   "image/tiff": ({ url }) => {
@@ -20,8 +23,9 @@ const addImageInCanvasObject = {
         var canvasColor = contextTiff.getImageData(0, 0, width, height);
         canvas.width = width
         canvas.height = height
+        canvas2.width = width
+        canvas2.height = height
         context.putImageData(canvasColor, 0, 0);
-        getDataImage({ type: "openCV", typeFunction: "highBoost" })
 
       }
     };
@@ -42,8 +46,11 @@ function addImageInCanvas({ url, type }) {
     canvas.height = imageObj.height
     width = imageObj.width
     height = imageObj.height
+    canvas2.width = width
+    canvas2.height = height
     context.drawImage(imageObj, 0, 0);
-    getDataImage({ type: "openCV", typeFunction: "highBoost" })
+
+
   };
   imageObj.src = url;
 

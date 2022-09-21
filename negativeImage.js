@@ -3,8 +3,12 @@ import { logarimitFilter } from './functions/logatimic.js'
 import { potenciaFilter } from './functions/potencia.js'
 import { localHistogramFilter, globalHistogramFilter } from './functions/histogram.js'
 import { highBoostFilter } from './functions/highBoost.js'
+import { transformImageFor } from './functions/transformImageFor.js'
 const canvas = document.getElementById("canvas");
+const canvas2 = document.getElementById("canvas2");
 const context = canvas.getContext("2d");
+const context2 = canvas2.getContext("2d");
+
 
 function negativergb(pixel) {
   return 255 - pixel;
@@ -25,13 +29,6 @@ function bitplaneSlicing(pixel, { bitplane = 0 }) {
   return parseInt(bits.join(""), 2)
 }
 
-function transformImageFor({ data, func, options }) {
-  for (var t = 0; t < data.length; t += 4) {
-    data[t] = func(data[t], options);
-    data[t + 1] = func(data[t + 1], options);
-    data[t + 2] = func(data[t + 2], options);
-  }
-}
 
 const sobel_v =
   [
@@ -60,8 +57,10 @@ let height = canvas.height
 
 function templateFilterImageByPureFunctions({ filterFunction, filterFunctionOptions }) {
   const canvasColor = context.getImageData(0, 0, width, height);
-  filterFunction({ data: canvasColor.data, ...filterFunctionOptions, width, height })
-  context.putImageData(canvasColor, 0, 0);
+  context2.putImageData(canvasColor, 0, 0);
+  const canvasColor2 = context2.getImageData(0, 0, width, height);
+  filterFunction({ data: canvasColor2.data, ...filterFunctionOptions, width, height })
+
 }
 
 const filtersPureFunctions = {
@@ -102,11 +101,11 @@ const filtersOpenCv = {
   highBoost: highBoostFilter
 }
 
-function templateFilterImagesByOpenCv({ idCanvas, type }) {
+function templateFilterImagesByOpenCv({ idCanvas, type, canvasShow }) {
   let src = cv.imread(idCanvas);
   let dst = new cv.Mat();
   filtersOpenCv[type]({ src, dst, boost_factor: 1 })
-  cv.imshow(idCanvas, dst);
+  cv.imshow(canvasShow, dst);
   src.delete();
   dst.delete();
 }
@@ -117,11 +116,13 @@ const filter = {
 
   },
   openCV: ({ type }) => {
-    templateFilterImagesByOpenCv({ idCanvas: 'canvas', type })
+    templateFilterImagesByOpenCv({ idCanvas: 'canvas', type, canvasShow: 'canvas2' })
   }
 }
 
 export function getDataImage({ type, typeFunction }) {
+  width = canvas.width
+  height = canvas.height
   filter[type]({ type: typeFunction })
 }
 

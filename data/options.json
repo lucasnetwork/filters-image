@@ -1,7 +1,58 @@
-[{
-    "name":"highBoost",
-    "value":{
-        "type":"openCV",
-        "typeFunction":"highBoost"
+[
+  {
+    "name": "highBoost",
+    "value": {
+      "type": "openCV",
+      "typeFunction": "highBoost"
     }
-}]
+  },
+  {
+    "name": "localHistogram",
+    "value": {
+      "type": "openCV",
+      "typeFunction": "localHistogram"
+    }
+  },
+  {
+    "name": "globalHistogram",
+    "value": {
+      "type": "openCV",
+      "typeFunction": "globalHistogram"
+    }
+  },
+  {
+    "name": "negative",
+    "value": {
+      "type": "pure",
+      "typeFunction": "negative"
+    }
+  },
+  {
+    "name": "laplacian",
+    "value": {
+      "type": "pure",
+      "typeFunction": "laplacian"
+    }
+  },
+  {
+    "name": "logarithmic",
+    "value": {
+      "type": "pure",
+      "typeFunction": "logarithmic"
+    }
+  },
+  {
+    "name": "potencia",
+    "value": {
+      "type": "pure",
+      "typeFunction": "potencia"
+    }
+  },
+  {
+    "name": "bitSlicing",
+    "value": {
+      "type": "pure",
+      "typeFunction": "bitSlicing"
+    }
+  }
+]
