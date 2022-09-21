@@ -14,19 +14,18 @@ function conv3y(data, idx, w, m) {
 * @param pixels - Object of image parameters
 * @param mask - gradient operator e.g. Prewitt, Sobel, Scharr, etc. 
 */
-function gradient_internal(pixels, { mask, width }) {
-  var data = pixels;
+function gradient_internal(pixels, { maskX,maskY, width }) {
+  var data = [...pixels];
   var w = width * 4;
   var l = data.length - w - 4;
   var buff = new data.constructor(new ArrayBuffer(data.length));
 
   for (var i = w + 4; i < l; i += 4) {
-    var dx = conv3x(data, i, w, mask);
-    var dy = conv3y(data, i, w, mask);
-    buff[i] = buff[i + 1] = buff[i + 2] = Math.sqrt(dx * dx + dy * dy);
-    buff[i + 3] = 255;
+    var dx = conv3x(data, i, w, maskX);
+    var dy = conv3y(data, i, w, maskY);
+    pixels[i] = pixels[i + 1] = pixels[i + 2] = Math.sqrt(dx * dx + dy * dy);
+    pixels[i + 3] = 255;
   }
-  pixels.set(buff);
 }
 
 
@@ -34,10 +33,7 @@ function gradient_internal(pixels, { mask, width }) {
 
 //teste final
 
-export function laplacian({ data, ...rest }) {
-  const pixesl = [...data]
+export function borderDetect({ data, ...rest }) {
   gradient_internal(data, rest);
-  for (let i = 0; i < pixesl.length; i++) {
-    data[i] = pixesl[i] + data[i]
-  }
+
 }

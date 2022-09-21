@@ -1,9 +1,10 @@
-import { laplacian } from './laplacian.js'
+import { borderDetect } from './borderDetect.js'
 import { logarimitFilter } from './functions/logatimic.js'
 import { potenciaFilter } from './functions/potencia.js'
 import { localHistogramFilter, globalHistogramFilter } from './functions/histogram.js'
 import { highBoostFilter } from './functions/highBoost.js'
 import { transformImageFor } from './functions/transformImageFor.js'
+import {medianSmoothingFilter,averageSmoothingFilter} from './functions/spatialFilter.js'
 const canvas = document.getElementById("canvas");
 const canvas2 = document.getElementById("canvas2");
 const context = canvas.getContext("2d");
@@ -30,19 +31,32 @@ function bitplaneSlicing(pixel, { bitplane = 0 }) {
 }
 
 
-const sobel_v =
+const sobelX =
   [
-    -1.0, 0.0, +1.0,
-    -2.0, 0.0, +2.0,
-    -1.0, 0.0, +1.0
+    1.0, 0.0, -1.0,
+    2.0, 0.0, -2.0,
+    1.0, 0.0, -1.0
   ];
 
-const sobel_h =
+const sobeld=
+  [
+    0, 1.0, 2,
+    -1.0, 0, 1.0,
+    -2.0, -1.0, 0.0,
+  ];
+  // const sobeld=
+  // [
+  //   0, -1.0, 0,
+  //   -1.0, 4, -1.0,
+  //   0.0, -1.0, 0.0,
+  // ];
+  const sobelY=
   [
     -1.0, -2.0, -1.0,
+    1.0, 2.0, 1.0,
     0.0, 0.0, 0.0,
-    +1.0, +2.0, +1.0
   ];
+
 
 const maskTest =
   [
@@ -50,6 +64,14 @@ const maskTest =
     2.0, 4.0, 20.0,
     +10.0, +2.0, +1.0
   ];
+
+  const maskRobertX=[
+    1,0,0,-1
+  ]
+
+  const maskRobertY =[
+    0,1,-1,0
+  ]
 
 let width = canvas.width
 let height = canvas.height
@@ -60,6 +82,8 @@ function templateFilterImageByPureFunctions({ filterFunction, filterFunctionOpti
   context2.putImageData(canvasColor, 0, 0);
   const canvasColor2 = context2.getImageData(0, 0, width, height);
   filterFunction({ data: canvasColor2.data, ...filterFunctionOptions, width, height })
+  console.log("teste",canvasColor.data)
+  context2.putImageData(canvasColor2, 0, 0);
 
 }
 
@@ -71,10 +95,18 @@ const filtersPureFunctions = {
       options: {}
     }
   },
-  laplacian: {
-    filterFunction: laplacian,
+  sorbel: {
+    filterFunction: borderDetect,
     filterFunctionOptions: {
-      mask: sobel_v,
+      maskY:sobelY,
+      maskX:sobelX
+    }
+  },
+  laplacian: {
+    filterFunction: borderDetect,
+    filterFunctionOptions: {
+      maskY:sobeld,
+      maskX:sobeld
     }
   },
   logarithmic: {
@@ -91,7 +123,16 @@ const filtersPureFunctions = {
         bitplane: 0,
 
       }
+    },
+  },
+  medianSmoothing:{
+    filterFunction:medianSmoothingFilter,
+    filterFunctionOptions:{
+      mask:sobelX,
     }
+  },
+  averageSmoothing:{
+    filterFunction:averageSmoothingFilter
   }
 }
 
@@ -105,6 +146,8 @@ function templateFilterImagesByOpenCv({ idCanvas, type, canvasShow }) {
   let src = cv.imread(idCanvas);
   let dst = new cv.Mat();
   filtersOpenCv[type]({ src, dst, boost_factor: 1 })
+  cv.imshow(idCanvas, src);
+
   cv.imshow(canvasShow, dst);
   src.delete();
   dst.delete();

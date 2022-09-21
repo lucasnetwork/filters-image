@@ -35,6 +35,13 @@
     }
   },
   {
+    "name": "sorbel",
+    "value": {
+      "type": "pure",
+      "typeFunction": "sorbel"
+    }
+  },
+  {
     "name": "logarithmic",
     "value": {
       "type": "pure",
@@ -53,6 +60,13 @@
     "value": {
       "type": "pure",
       "typeFunction": "bitSlicing"
+    }
+  },
+  {
+    "name":"mediano",
+    "value":{
+      "type":"pure",
+      "typeFunction":"medianSmoothing"
     }
   }
 ]
