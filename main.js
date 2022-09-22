@@ -1,18 +1,3 @@
-import { borderDetect } from "./functions/borderDetect.js";
-import { logarimitFilter } from "./functions/logatimic.js";
-import { potenciaFilter } from "./functions/potencia.js";
-import {
-  localHistogramFilter,
-  globalHistogramFilter,
-} from "./functions/histogram.js";
-import { highBoostFilter } from "./functions/highBoost.js";
-import { transformImageFor } from "./functions/transformImageFor.js";
-import {
-  medianSmoothingFilter,
-  averageSmoothingFilter,
-} from "./functions/spatialFilter.js";
-import {bitplaneSlicing} from './functions/bitSlicing.js'
-import {negativergb} from './functions/negative.js'
 import {
   sobelX,
   sobelY,
@@ -20,15 +5,22 @@ import {
   robertX,
   robertY,
 } from "./utils/masks.js";
-
+import { transformImageFor } from "./functions/transformImageFor.js";
+import {
+  averageSmoothingFilter,
+  bitplaneSlicing,
+  borderDetect,
+  globalHistogramFilter,
+  highBoostFilter,
+  localHistogramFilter,
+  logarimitFilter,
+  medianSmoothingFilter,
+  negativergb,potenciaFilter
+} from "./functions/filters/index.js";
 const canvas = document.getElementById("canvas");
 const canvas2 = document.getElementById("canvas2");
 const context = canvas.getContext("2d");
 const context2 = canvas2.getContext("2d");
-
-
-
-
 
 let width = canvas.width;
 let height = canvas.height;

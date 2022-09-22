@@ -1,7 +1,4 @@
-//make Spatial Smoothing Filters with canvas
-const maskSpatialSmoothing = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, +1.0, +1.0, +1.0];
-
-const maskMedian = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, +1.0, +1.0, +1.0];
+import {maskMedian} from '../../utils/masks.js'
 
 export function medianSmoothingFilter({ data, width, height }) {
   const maskSize = Math.sqrt(maskMedian.length);

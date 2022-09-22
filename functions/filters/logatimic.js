@@ -1,5 +1,5 @@
-import { calculeGame } from "../utils/functions.js";
-import { transformImageFor } from "./transformImageFor.js";
+import { calculeGame } from "../../utils/functions.js";
+import { transformImageFor } from "../transformImageFor.js";
 
 function logarithmicRgb(pixel, { constant }) {
   return constant * Math.log(pixel + 1);

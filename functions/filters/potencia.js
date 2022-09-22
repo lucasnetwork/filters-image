@@ -1,5 +1,5 @@
-import { calculeGame } from "../utils/functions.js";
-import { transformImageFor } from "./transformImageFor.js";
+import { calculeGame } from "../../utils/functions.js";
+import { transformImageFor } from "../transformImageFor.js";
 
 function potencia(pixel, { gama, constant }) {
   return constant * Math.pow(pixel, gama);
