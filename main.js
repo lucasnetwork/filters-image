@@ -1,4 +1,4 @@
-import { borderDetect } from "./borderDetect.js";
+import { borderDetect } from "./functions/borderDetect.js";
 import { logarimitFilter } from "./functions/logatimic.js";
 import { potenciaFilter } from "./functions/potencia.js";
 import {
