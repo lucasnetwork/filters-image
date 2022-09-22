@@ -12,6 +12,5 @@ options.forEach((option) => {
 
 button.addEventListener("click", () => {
   const option = JSON.parse(optionsSelect.value);
-  console.log(option.value);
   getDataImage(option.value);
 });
