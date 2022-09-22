@@ -11,6 +11,8 @@ import {
   medianSmoothingFilter,
   averageSmoothingFilter,
 } from "./functions/spatialFilter.js";
+import {bitplaneSlicing} from './functions/bitSlicing.js'
+import {negativergb} from './functions/negative.js'
 import {
   sobelX,
   sobelY,
@@ -24,24 +26,9 @@ const canvas2 = document.getElementById("canvas2");
 const context = canvas.getContext("2d");
 const context2 = canvas2.getContext("2d");
 
-function negativergb(pixel) {
-  return 255 - pixel;
-}
 
-function bitplaneSlicing(pixel, { bitplane = 0 }) {
-  const bits = [];
-  for (var i = 7; i >= 0; i--) {
-    var bit = pixel & (1 << i) ? 1 : 0;
-    bits.push(bit);
-  }
 
-  for (var i = 7; i >= 0; i--) {
-    if (i === bitplane) {
-      bits[i] = 0;
-    }
-  }
-  return parseInt(bits.join(""), 2);
-}
+
 
 let width = canvas.width;
 let height = canvas.height;
