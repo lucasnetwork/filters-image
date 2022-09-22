@@ -6,7 +6,7 @@ const context2 = canvas2.getContext("2d");
 let width = canvas.width;
 let height = canvas.height;
 
-const addImageInCanvasObject = {
+const handleImagesStrategies = {
   "image/tiff": ({ url }) => {
     var xhr = new XMLHttpRequest();
     xhr.responseType = "arraybuffer";
@@ -44,7 +44,7 @@ const addImageInCanvasObject = {
 };
 
 function addImageInCanvas({ url, type }) {
-  const existFunction = addImageInCanvasObject[type] ?? addImageInCanvasObject.__default__;
+  const existFunction = handleImagesStrategies[type] ?? handleImagesStrategies.__default__;
   existFunction({ url });
 }
 
