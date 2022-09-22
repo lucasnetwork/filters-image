@@ -1,59 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Processamento de Imagens</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="libs/tiff.min.js"></script>
     <script src="libs/opencv.js"></script>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <header class="titulo-principal">
-        <h1>Atividade de processamento de Imagens</h1>
+      <h1>Atividade de processamento de Imagens</h1>
     </header>
 
     <section>
-        <div class="boxGeneral">
-
-            <div class="boxCanvas">
-                <h1 class="titleBox">
-                    Imagem Original
-                </h1>
-                <canvas id="canvas"></canvas>
-            </div>
-            <p class="simbolResult">
-                =
-            </p>
-            <div class="boxCanvas">
-                <h1 class="titleBox">
-                    Imagem Processada
-                </h1>
-                <canvas id="canvas2"></canvas>
-            </div>
+      <div class="boxGeneral">
+        <div class="boxCanvas">
+          <h1 class="titleBox">Imagem Original</h1>
+          <canvas id="canvas"></canvas>
         </div>
+        <p class="simbolResult">=</p>
+        <div class="boxCanvas">
+          <h1 class="titleBox">Imagem Processada</h1>
+          <canvas id="canvas2"></canvas>
+        </div>
+      </div>
 
-        <form action='' method='POST' enctype='multipart/form-data'>
-            <input type='file' name='userFile' id="input-files"><br>
-            <label for="input-files" id="nomeDaLabel">Choose a file</label>
-        </form>
+      <form action="" method="POST" enctype="multipart/form-data">
+        <input type="file" name="userFile" id="input-files" /><br />
+        <label for="input-files" id="nomeDaLabel">Choose a file</label>
+      </form>
 
-        <select name="filtro" id="filtro">
+      <select name="filtro" id="filtro"></select>
 
-        </select>
-
-        <button id="btnProcessar">Processar</button>
+      <button id="btnProcessar">Processar</button>
     </section>
-
-
-</body>
-<script src="./utils/selects.js" type="module"></script>
-<script src="main.js" type="module"></script>
-<script src="getImg.js" type="module"></script>
-
-
+  </body>
+  <script src="./utils/selects.js" type="module"></script>
+  <script src="main.js" type="module"></script>
+  <script src="getImg.js" type="module"></script>
 </html>

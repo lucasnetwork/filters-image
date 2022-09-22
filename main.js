@@ -11,7 +11,13 @@ import {
   medianSmoothingFilter,
   averageSmoothingFilter,
 } from "./functions/spatialFilter.js";
-import { sobelX, sobelY, laplacianMask,robertX,robertY } from "./utils/masks.js";
+import {
+  sobelX,
+  sobelY,
+  laplacianMask,
+  robertX,
+  robertY,
+} from "./utils/masks.js";
 
 const canvas = document.getElementById("canvas");
 const canvas2 = document.getElementById("canvas2");
@@ -36,7 +42,6 @@ function bitplaneSlicing(pixel, { bitplane = 0 }) {
   }
   return parseInt(bits.join(""), 2);
 }
-
 
 let width = canvas.width;
 let height = canvas.height;

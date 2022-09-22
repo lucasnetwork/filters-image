@@ -1,21 +1,9 @@
 //make Spatial Smoothing Filters with canvas
-const maskSpatialSmoothing =
-  [
-    1.0, 1.0, 1.0,
-    1.0, 1.0, 1.0,
-    +1.0, +1.0, +1.0
-  ];
+const maskSpatialSmoothing = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, +1.0, +1.0, +1.0];
 
+const maskMedian = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, +1.0, +1.0, +1.0];
 
-const maskMedian =
-  [
-    1.0, 1.0, 1.0,
-    1.0, 1.0, 1.0,
-    +1.0, +1.0, +1.0
-  ];
-
-  
-export function medianSmoothingFilter({data,   width, height }) {
+export function medianSmoothingFilter({ data, width, height }) {
   const maskSize = Math.sqrt(maskMedian.length);
   const halfMaskSize = Math.floor(maskSize / 2);
 
@@ -23,7 +11,7 @@ export function medianSmoothingFilter({data,   width, height }) {
     let array = [];
     for (let j = 0; j < maskMedian.length; j++) {
       const x = (i / 4) % width;
-      const y = Math.floor((i / 4) / width);
+      const y = Math.floor(i / 4 / width);
       const maskX = j % maskSize;
       const maskY = Math.floor(j / maskSize);
       const imageX = (x - halfMaskSize + maskX + width) % width;
@@ -39,7 +27,7 @@ export function medianSmoothingFilter({data,   width, height }) {
   }
 }
 
-export function averageSmoothingFilter({ data,width, height }) {
+export function averageSmoothingFilter({ data, width, height }) {
   const maskSize = Math.sqrt(maskMedian.length);
   const halfMaskSize = Math.floor(maskSize / 2);
 
@@ -47,7 +35,7 @@ export function averageSmoothingFilter({ data,width, height }) {
     let sum = 0;
     for (let j = 0; j < maskMedian.length; j++) {
       const x = (i / 4) % width;
-      const y = Math.floor((i / 4) / width);
+      const y = Math.floor(i / 4 / width);
       const maskX = j % maskSize;
       const maskY = Math.floor(j / maskSize);
       const imageX = (x - halfMaskSize + maskX + width) % width;

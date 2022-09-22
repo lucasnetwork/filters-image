@@ -1,20 +1,28 @@
-
 function conv3x(data, idx, w, m) {
-  return (m[0] * data[idx - w - 4] + m[1] * data[idx - 4] + m[2] * data[idx + w - 4]
-    - m[0] * data[idx - w + 4] - m[1] * data[idx + 4] - m[2] * data[idx + 4 + 4]);
+  return (
+    m[0] * data[idx - w - 4] +
+    m[1] * data[idx - 4] +
+    m[2] * data[idx + w - 4] -
+    m[0] * data[idx - w + 4] -
+    m[1] * data[idx + 4] -
+    m[2] * data[idx + 4 + 4]
+  );
 }
 
 function conv3y(data, idx, w, m) {
-  return (m[0] * data[idx - w - 4] + m[1] * data[idx - w] + m[2] * data[idx - w + 4]
-    - (m[0] * data[idx + w - 4] + m[1] * data[idx + w] + m[2] * data[idx + w + 4]));
+  return (
+    m[0] * data[idx - w - 4] +
+    m[1] * data[idx - w] +
+    m[2] * data[idx - w + 4] -
+    (m[0] * data[idx + w - 4] + m[1] * data[idx + w] + m[2] * data[idx + w + 4])
+  );
 }
 
-
 /**
-* @param pixels - Object of image parameters
-* @param mask - gradient operator e.g. Prewitt, Sobel, Scharr, etc. 
-*/
-function gradient_internal(pixels, { maskX,maskY, width }) {
+ * @param pixels - Object of image parameters
+ * @param mask - gradient operator e.g. Prewitt, Sobel, Scharr, etc.
+ */
+function gradient_internal(pixels, { maskX, maskY, width }) {
   var data = [...pixels];
   var w = width * 4;
   var l = data.length - w - 4;
@@ -28,17 +36,13 @@ function gradient_internal(pixels, { maskX,maskY, width }) {
   }
 }
 
-
-
-
 //teste final
 
 export function borderDetect({ data, ...rest }) {
-  const pixels = [...data]
+  const pixels = [...data];
   gradient_internal(data, rest);
-  
-  for(let i=0;i < pixels.length;i++){
-    data[i] = pixels[i] + data[i]
-  }
 
+  for (let i = 0; i < pixels.length; i++) {
+    data[i] = pixels[i] + data[i];
+  }
 }

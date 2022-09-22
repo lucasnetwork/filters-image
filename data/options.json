@@ -70,17 +70,17 @@
     }
   },
   {
-    "name":"mediano",
-    "value":{
-      "type":"pure",
-      "typeFunction":"medianSmoothing"
+    "name": "mediano",
+    "value": {
+      "type": "pure",
+      "typeFunction": "medianSmoothing"
     }
   },
   {
-    "name":"média",
-    "value":{
-      "type":"pure",
-      "typeFunction":"averageSmoothing"
+    "name": "média",
+    "value": {
+      "type": "pure",
+      "typeFunction": "averageSmoothing"
     }
   }
 ]
