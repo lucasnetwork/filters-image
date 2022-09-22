@@ -12,7 +12,6 @@ export function highBoostFilter({ src, dst, boost_factor = 2 }) {
     cv.BORDER_DEFAULT
   );
   cv.addWeighted(src, 1 + boost_factor, highBoost, -boost_factor, 0, dst);
-  cv.imshow("canvas", dst);
   highBoost.delete();
   kernel.delete();
 }
