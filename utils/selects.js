@@ -1,6 +1,5 @@
 import options from '../data/options.json' assert {type: 'json'};
-import { getDataImage } from '../negativeImage.js'
-console.log(options)
+import { getDataImage } from '../main.js'
 
 const optionsSelect = document.getElementById('filtro');
 const button = document.getElementById('btnProcessar');

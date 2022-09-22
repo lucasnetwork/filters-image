@@ -42,6 +42,13 @@
     }
   },
   {
+    "name": "robert",
+    "value": {
+      "type": "pure",
+      "typeFunction": "robert"
+    }
+  },
+  {
     "name": "logarithmic",
     "value": {
       "type": "pure",
