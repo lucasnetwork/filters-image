@@ -15,7 +15,7 @@ const maskMedian =
   ];
 
   
-export function medianSmoothingFilter(data, { mask, width, height }) {
+export function medianSmoothingFilter({data,   width, height }) {
   const maskSize = Math.sqrt(maskMedian.length);
   const halfMaskSize = Math.floor(maskSize / 2);
 
@@ -39,7 +39,7 @@ export function medianSmoothingFilter(data, { mask, width, height }) {
   }
 }
 
-export function averageSmoothingFilter(data, { mask, width, height }) {
+export function averageSmoothingFilter({ data,width, height }) {
   const maskSize = Math.sqrt(maskMedian.length);
   const halfMaskSize = Math.floor(maskSize / 2);
 

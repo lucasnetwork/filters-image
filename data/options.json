@@ -75,5 +75,12 @@
       "type":"pure",
       "typeFunction":"medianSmoothing"
     }
+  },
+  {
+    "name":"média",
+    "value":{
+      "type":"pure",
+      "typeFunction":"averageSmoothing"
+    }
   }
 ]

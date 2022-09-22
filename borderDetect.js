@@ -34,6 +34,11 @@ function gradient_internal(pixels, { maskX,maskY, width }) {
 //teste final
 
 export function borderDetect({ data, ...rest }) {
+  const pixels = [...data]
   gradient_internal(data, rest);
+  
+  for(let i=0;i < pixels.length;i++){
+    data[i] = pixels[i] + data[i]
+  }
 
 }

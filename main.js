@@ -103,9 +103,6 @@ const filtersPureFunctions = {
   },
   medianSmoothing: {
     filterFunction: medianSmoothingFilter,
-    filterFunctionOptions: {
-      mask: sobelX,
-    },
   },
   averageSmoothing: {
     filterFunction: averageSmoothingFilter,
