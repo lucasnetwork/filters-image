@@ -4,6 +4,7 @@
   border: 0;
   vertical-align: baseline;
   box-sizing: border-box;
+  font-family: 'Signika', sans-serif;
 }
 
 .titulo-principal {
@@ -15,6 +16,17 @@
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
+}
+
+select,button,label{
+  font-size:24px
+}
+
+.titleBox {
+  text-align: center;
+  color: #000;
+  font-size: 38px;
+  padding-bottom: 20px;
 }
 
 section {
