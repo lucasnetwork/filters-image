@@ -1,4 +1,5 @@
 import { mappingImagePixelsAndFillPixel } from "../../utils/mappingImagePixelsAndFillPixel.js";
+import { dilation } from "./dilation.js";
 import { erosion } from "./erosion.js";
 
 const MASK =[

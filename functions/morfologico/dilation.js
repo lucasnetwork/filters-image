@@ -26,6 +26,8 @@ export function dilationFunction({currentPixel,context,getMiddleMask,getMiddleMa
 
 export function dilation({width,height,canvas,mask=MASK}){
     const canvas3 = document.createElement("canvas")
+    canvas3.width = width;
+    canvas3.height = height;
     const context = canvas3.getContext("2d")
     const currentPixel = canvas.getImageData(0, 0, width, height);
 
