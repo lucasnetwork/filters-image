@@ -20,6 +20,7 @@ import {
 import { erosion } from "./functions/morfologico/erosion.js";
 import { dilation } from "./functions/morfologico/dilation.js";
 import { abertura } from "./functions/morfologico/abertura.js";
+import { closing } from "./functions/morfologico/closing.js";
 const canvas = document.getElementById("canvas");
 const canvas2 = document.getElementById("canvas2");
 const context = canvas.getContext("2d");
@@ -130,21 +131,18 @@ const filtersPureFunctions = {
   },
   erosion:{
     filterFunction:erosion,
-    filterFunctionOptions:{
-      notPutImage:true
-    }
+
   },
   dilation:{
     filterFunction:dilation,
-    filterFunctionOptions:{
-      notPutImage:true
-    }
+
   },
   abertura:{
     filterFunction:abertura,
-    filterFunctionOptions:{
-      notPutImage:true
-    }
+
+  },
+  closing:{
+    filterFunction:closing,
   }
 };
 
@@ -182,6 +180,5 @@ const filter = {
 export function getDataImage({ type, typeFunction }) {
   width = canvas.width;
   height = canvas.height;
-  // filter[type]({ type: 'erosion' });
   filter[type]({ type: typeFunction });
 }

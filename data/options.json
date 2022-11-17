@@ -103,6 +103,13 @@
       "type": "newPureFunctions",
       "typeFunction": "abertura"
     }
+  },
+  {
+    "name": "Fechamento",
+    "value": {
+      "type": "newPureFunctions",
+      "typeFunction": "closing"
+    }
   }
   
 ]
