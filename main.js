@@ -17,6 +17,7 @@ import {
   medianSmoothingFilter,
   negativergb,potenciaFilter
 } from "./functions/filters/index.js";
+import { erosion } from "./functions/morfologico/erosion.js";
 const canvas = document.getElementById("canvas");
 const canvas2 = document.getElementById("canvas2");
 const context = canvas.getContext("2d");
@@ -30,15 +31,28 @@ function templateFilterImageByPureFunctions({
   filterFunctionOptions,
 }) {
   const canvasColor = context.getImageData(0, 0, width, height);
+  
   context2.putImageData(canvasColor, 0, 0);
+  let dst = new cv.Mat();
+  let src = cv.imread("canvas");
+
+  cv.cvtColor(src, dst, cv.COLOR_BGR2GRAY);
+  cv.threshold(dst, dst,127,255, cv.THRESH_BINARY)
+  cv.imshow("canvas2", dst);
+
   const canvasColor2 = context2.getImageData(0, 0, width, height);
+  console.log(canvasColor2.data)
   filterFunction({
+    canvas:context2,
     data: canvasColor2.data,
     ...filterFunctionOptions,
     width,
     height,
   });
-  context2.putImageData(canvasColor2, 0, 0);
+  if(!filterFunctionOptions.notPutImage){
+    context2.putImageData(canvasColor2, 0, 0);
+
+  }
 }
 
 const filtersPureFunctions = {
@@ -91,6 +105,12 @@ const filtersPureFunctions = {
   averageSmoothing: {
     filterFunction: averageSmoothingFilter,
   },
+  erosion:{
+    filterFunction:erosion,
+    filterFunctionOptions:{
+      notPutImage:true
+    }
+  }
 };
 
 const filtersOpenCv = {
@@ -124,5 +144,6 @@ const filter = {
 export function getDataImage({ type, typeFunction }) {
   width = canvas.width;
   height = canvas.height;
+  // filter[type]({ type: 'erosion' });
   filter[type]({ type: typeFunction });
 }

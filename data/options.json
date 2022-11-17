@@ -82,5 +82,12 @@
       "type": "pure",
       "typeFunction": "averageSmoothing"
     }
+  },
+  {
+    "name": "erosão",
+    "value": {
+      "type": "pure",
+      "typeFunction": "erosion"
+    }
   }
 ]
