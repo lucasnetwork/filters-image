@@ -89,5 +89,13 @@
       "type": "pure",
       "typeFunction": "erosion"
     }
+  },
+  {
+    "name": "dilatação",
+    "value": {
+      "type": "pure",
+      "typeFunction": "dilation"
+    }
   }
+  
 ]

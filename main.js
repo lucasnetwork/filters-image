@@ -18,6 +18,7 @@ import {
   negativergb,potenciaFilter
 } from "./functions/filters/index.js";
 import { erosion } from "./functions/morfologico/erosion.js";
+import { dilation } from "./functions/morfologico/dilation.js";
 const canvas = document.getElementById("canvas");
 const canvas2 = document.getElementById("canvas2");
 const context = canvas.getContext("2d");
@@ -110,7 +111,13 @@ const filtersPureFunctions = {
     filterFunctionOptions:{
       notPutImage:true
     }
-  }
+  },
+  dilation:{
+    filterFunction:dilation,
+    filterFunctionOptions:{
+      notPutImage:true
+    }
+  },
 };
 
 const filtersOpenCv = {
