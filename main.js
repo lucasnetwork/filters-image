@@ -45,7 +45,6 @@ function templateFilterImageByPureFunctions({
   }
 
   const canvasColor2 = context2.getImageData(0, 0, width, height);
-  console.log(canvasColor2.data)
   filterFunction({
     canvas:context2,
     data: canvasColor2.data,
@@ -53,9 +52,30 @@ function templateFilterImageByPureFunctions({
     width,
     height,
   });
-  if(!filterFunctionOptions.notPutImage){
-    context2.putImageData(canvasColor2, 0, 0);
-  }
+  context2.putImageData(canvasColor2, 0, 0);
+}
+
+function templateFilterImageByPureFunctionsWithDrawCanvas({
+  filterFunction,
+  filterFunctionOptions,}){
+    const canvasColor = context.getImageData(0, 0, width, height);
+  
+    context2.putImageData(canvasColor, 0, 0);
+      let dst = new cv.Mat();
+      let src = cv.imread("canvas");
+    
+      cv.cvtColor(src, dst, cv.COLOR_BGR2GRAY);
+      cv.threshold(dst, dst,127,255, cv.THRESH_BINARY)
+      cv.imshow("canvas2", dst);
+  
+    const canvasColor2 = context2.getImageData(0, 0, width, height);
+    filterFunction({
+      canvas:context2,
+      data: canvasColor2.data,
+      ...filterFunctionOptions,
+      width,
+      height,
+    });
 }
 
 const filtersPureFunctions = {
@@ -154,6 +174,9 @@ const filter = {
       canvasShow: "canvas2",
     });
   },
+  newPureFunctions:({type})=>{
+    templateFilterImageByPureFunctionsWithDrawCanvas(filtersPureFunctions[type])
+  }
 };
 
 export function getDataImage({ type, typeFunction }) {

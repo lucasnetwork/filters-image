@@ -86,21 +86,21 @@
   {
     "name": "erosão",
     "value": {
-      "type": "pure",
+      "type": "newPureFunctions",
       "typeFunction": "erosion"
     }
   },
   {
     "name": "dilatação",
     "value": {
-      "type": "pure",
+      "type": "newPureFunctions",
       "typeFunction": "dilation"
     }
   },
   {
     "name": "abertura",
     "value": {
-      "type": "pure",
+      "type": "newPureFunctions",
       "typeFunction": "abertura"
     }
   }
