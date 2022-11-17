@@ -1,6 +1,11 @@
-import { MASK } from "../../constants/masks.js";
 import { mappingImagePixelsAndFillPixel } from "../../utils/mappingImagePixelsAndFillPixel.js";
+import { erosion } from "./erosion.js";
 
+const MASK =[
+    [1,1,1],
+    [1,1,1],
+    [1,1,1]
+]
 
 export function dilationFunction({currentPixel,context,getMiddleMask,getMiddleMaskInto,imagePositionX,imagePositionY,mask}) {
             
@@ -24,11 +29,7 @@ export function dilationFunction({currentPixel,context,getMiddleMask,getMiddleMa
     return allfill
 }
 
-export function dilation({width,height,canvas,mask=MASK}){
-    const canvas3 = document.createElement("canvas")
-    const context = canvas3.getContext("2d")
-    const currentPixel = canvas.getImageData(0, 0, width, height);
-
-    context.putImageData(currentPixel,0,0)
-    mappingImagePixelsAndFillPixel({width,height,context,canvas,callback:dilationFunction,mask})
+export function abertura({width,height,canvas}){
+    erosion({width,height,canvas,mask:MASK})
+    dilation({width,height,canvas,mask:MASK})
 }

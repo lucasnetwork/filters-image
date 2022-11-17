@@ -96,6 +96,13 @@
       "type": "pure",
       "typeFunction": "dilation"
     }
+  },
+  {
+    "name": "abertura",
+    "value": {
+      "type": "pure",
+      "typeFunction": "abertura"
+    }
   }
   
 ]

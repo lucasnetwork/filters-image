@@ -19,6 +19,7 @@ import {
 } from "./functions/filters/index.js";
 import { erosion } from "./functions/morfologico/erosion.js";
 import { dilation } from "./functions/morfologico/dilation.js";
+import { abertura } from "./functions/morfologico/abertura.js";
 const canvas = document.getElementById("canvas");
 const canvas2 = document.getElementById("canvas2");
 const context = canvas.getContext("2d");
@@ -34,12 +35,14 @@ function templateFilterImageByPureFunctions({
   const canvasColor = context.getImageData(0, 0, width, height);
   
   context2.putImageData(canvasColor, 0, 0);
-  let dst = new cv.Mat();
-  let src = cv.imread("canvas");
-
-  cv.cvtColor(src, dst, cv.COLOR_BGR2GRAY);
-  cv.threshold(dst, dst,127,255, cv.THRESH_BINARY)
-  cv.imshow("canvas2", dst);
+  if(filterFunctionOptions.notPutImage){
+    let dst = new cv.Mat();
+    let src = cv.imread("canvas");
+  
+    cv.cvtColor(src, dst, cv.COLOR_BGR2GRAY);
+    cv.threshold(dst, dst,127,255, cv.THRESH_BINARY)
+    cv.imshow("canvas2", dst);
+  }
 
   const canvasColor2 = context2.getImageData(0, 0, width, height);
   console.log(canvasColor2.data)
@@ -52,7 +55,6 @@ function templateFilterImageByPureFunctions({
   });
   if(!filterFunctionOptions.notPutImage){
     context2.putImageData(canvasColor2, 0, 0);
-
   }
 }
 
@@ -118,6 +120,12 @@ const filtersPureFunctions = {
       notPutImage:true
     }
   },
+  abertura:{
+    filterFunction:abertura,
+    filterFunctionOptions:{
+      notPutImage:true
+    }
+  }
 };
 
 const filtersOpenCv = {
