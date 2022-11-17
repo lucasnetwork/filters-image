@@ -103,6 +103,12 @@
       "type": "newPureFunctions",
       "typeFunction": "abertura"
     }
-  }
-  
+  },
+  {
+    "name": "extração",
+    "value": {
+      "type": "openCV",
+      "typeFunction": "extracao"
+    }
+  } 
 ]
