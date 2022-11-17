@@ -82,5 +82,27 @@
       "type": "pure",
       "typeFunction": "averageSmoothing"
     }
+  },
+  {
+    "name": "erosão",
+    "value": {
+      "type": "newPureFunctions",
+      "typeFunction": "erosion"
+    }
+  },
+  {
+    "name": "dilatação",
+    "value": {
+      "type": "newPureFunctions",
+      "typeFunction": "dilation"
+    }
+  },
+  {
+    "name": "abertura",
+    "value": {
+      "type": "newPureFunctions",
+      "typeFunction": "abertura"
+    }
   }
+  
 ]
