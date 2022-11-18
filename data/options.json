@@ -117,6 +117,13 @@
       "type": "newPureFunctions",
       "typeFunction": "hitOrMissTransformation"
     }
+  },
+  {
+    "name":"Deteção de bordas",
+    "value":{
+      "type":"newPureFunctions",
+      "typeFunction":"detectionBorders"
+    }
   }
   
 ]

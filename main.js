@@ -22,11 +22,12 @@ import { dilation } from "./functions/morfologico/dilation.js";
 import { abertura } from "./functions/morfologico/abertura.js";
 import { closing } from "./functions/morfologico/closing.js";
 import { hitOrMissTransformation } from "./functions/morfologico/hitOrMissTransformation.js";
+import { detectionBorders } from "./functions/segmentation/detectionBorders.js";
 
 const canvas = document.getElementById("canvas");
 const canvas2 = document.getElementById("canvas2");
 const context = canvas.getContext("2d");
-const context2 = canvas2.getContext("2d");
+const context2 = canvas2.getContext("2d",{willReadFrequently:true});
 
 let width = canvas.width;
 let height = canvas.height;
@@ -64,12 +65,15 @@ function templateFilterImageByPureFunctionsWithDrawCanvas({
     const canvasColor = context.getImageData(0, 0, width, height);
   
     context2.putImageData(canvasColor, 0, 0);
-      let dst = new cv.Mat();
-      let src = cv.imread("canvas");
-    
-      cv.cvtColor(src, dst, cv.COLOR_BGR2GRAY);
+    let dst = new cv.Mat();
+    let src = cv.imread("canvas");
+  
+    cv.cvtColor(src, dst, cv.COLOR_BGR2GRAY);
+    if(!filterFunctionOptions.notBinary){
       cv.threshold(dst, dst,127,255, cv.THRESH_BINARY)
-      cv.imshow("canvas2", dst);
+
+    }
+    cv.imshow("canvas2", dst);
   
     const canvasColor2 = context2.getImageData(0, 0, width, height);
     filterFunction({
@@ -148,6 +152,12 @@ const filtersPureFunctions = {
   },
   hitOrMissTransformation:{
     filterFunction:hitOrMissTransformation
+  },
+  detectionBorders:{
+    filterFunction:detectionBorders,
+    filterFunctionOptions:{
+      notBinary:true
+    }
   }
 };
 
