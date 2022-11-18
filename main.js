@@ -20,6 +20,7 @@ import {
 import { erosion } from "./functions/morfologico/erosion.js";
 import { dilation } from "./functions/morfologico/dilation.js";
 import { abertura } from "./functions/morfologico/abertura.js";
+import { extracao } from "./functions/alg_morfologicos/borderExtraction.js";
 import { closing } from "./functions/morfologico/closing.js";
 import { hitOrMissTransformation } from "./functions/morfologico/hitOrMissTransformation.js";
 import { detectionBorders } from "./functions/segmentation/detectionBorders.js";
@@ -165,6 +166,7 @@ const filtersOpenCv = {
   localHistogram: localHistogramFilter,
   globalHistogram: globalHistogramFilter,
   highBoost: highBoostFilter,
+  extracao: extracao
 };
 
 function templateFilterImagesByOpenCv({ idCanvas, type, canvasShow }) {
