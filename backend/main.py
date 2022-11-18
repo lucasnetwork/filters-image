@@ -41,6 +41,66 @@ def upload_file():
         im_out = im_th | im_floodfill_inv
         cv2.imwrite('uploads/img.png', im_out)
         return "../backend/uploads/img.png"
+
+
+@app.route('/conexao', methods=['POST'])
+def conexao():
+    if request.method == 'POST':
+        file = request.files['file']
+        file.save(os.path.join("uploads", file.filename))
+
+
+        im_in = cv2.imread("uploads/"+file.filename);
+
+        
+        gray_img = cv2.cvtColor(im_in , cv2.COLOR_BGR2GRAY)
+        
+        blurred = cv2.GaussianBlur(gray_img, (7, 7), 0)
+        threshold = cv2.threshold(blurred, 0, 255,
+            cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
+        
+        analysis = cv2.connectedComponentsWithStats(threshold,
+                                                    4,
+                                                    cv2.CV_32S)
+        (totalLabels, label_ids, values, centroid) = analysis
+        
+        output = np.zeros(gray_img.shape, dtype="uint8")
+        
+        for i in range(1, totalLabels):
+            componentMask = (label_ids == i).astype("uint8") * 255
+            output = cv2.bitwise_or(output, componentMask)
+        cv2.imwrite('uploads/img.png', output)
+
+        return "../backend/uploads/img.png"
+  
+@app.route('/medias', methods=['POST'])
+def medias():
+    if request.method == 'POST':
+
+        file = request.files['file']
+        file.save(os.path.join("uploads", file.filename))
+
+        im_in = cv2.imread("uploads/"+file.filename);
+        gray = cv2.cvtColor(im_in, cv2.COLOR_BGR2GRAY)
+        im_in = cv2.medianBlur(gray,5)
+        th3 = cv2.adaptiveThreshold(im_in,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,11,2)
+
+        cv2.imwrite('uploads/img.png', th3)
+
+        return "../backend/uploads/img.png"
+
+@app.route('/otsu', methods=['POST'])
+def otsu():
+    if request.method == 'POST':
+        file = request.files['file']
+        file.save(os.path.join("uploads", file.filename))
+        im_in = cv2.imread("uploads/"+file.filename);
+        gray = cv2.cvtColor(im_in, cv2.COLOR_BGR2GRAY)
+        blur = cv2.GaussianBlur(gray,(5,5),0)
+        ret3,th3 = cv2.threshold(blur,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+        cv2.imwrite('uploads/img.png', th3)
+
+        return "../backend/uploads/img.png"
   
 # driver function
 if __name__ == '__main__':
