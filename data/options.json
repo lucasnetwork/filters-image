@@ -105,6 +105,12 @@
     }
   },
   {
+    "name": "extração",
+    "value": {
+      "type": "openCV",
+      "typeFunction": "extracao"
+    }
+  }, 
     "name": "Fechamento",
     "value": {
       "type": "newPureFunctions",
@@ -125,5 +131,5 @@
       "typeFunction":"detectionBorders"
     }
   }
-  
+
 ]
