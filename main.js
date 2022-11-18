@@ -21,10 +21,14 @@ import { erosion } from "./functions/morfologico/erosion.js";
 import { dilation } from "./functions/morfologico/dilation.js";
 import { abertura } from "./functions/morfologico/abertura.js";
 import { extracao } from "./functions/alg_morfologicos/borderExtraction.js";
+import { closing } from "./functions/morfologico/closing.js";
+import { hitOrMissTransformation } from "./functions/morfologico/hitOrMissTransformation.js";
+import { detectionBorders } from "./functions/segmentation/detectionBorders.js";
+
 const canvas = document.getElementById("canvas");
 const canvas2 = document.getElementById("canvas2");
 const context = canvas.getContext("2d");
-const context2 = canvas2.getContext("2d");
+const context2 = canvas2.getContext("2d",{willReadFrequently:true});
 
 let width = canvas.width;
 let height = canvas.height;
@@ -62,12 +66,15 @@ function templateFilterImageByPureFunctionsWithDrawCanvas({
     const canvasColor = context.getImageData(0, 0, width, height);
   
     context2.putImageData(canvasColor, 0, 0);
-      let dst = new cv.Mat();
-      let src = cv.imread("canvas");
-    
-      cv.cvtColor(src, dst, cv.COLOR_BGR2GRAY);
+    let dst = new cv.Mat();
+    let src = cv.imread("canvas");
+  
+    cv.cvtColor(src, dst, cv.COLOR_BGR2GRAY);
+    if(!filterFunctionOptions.notBinary){
       cv.threshold(dst, dst,127,255, cv.THRESH_BINARY)
-      cv.imshow("canvas2", dst);
+
+    }
+    cv.imshow("canvas2", dst);
   
     const canvasColor2 = context2.getImageData(0, 0, width, height);
     filterFunction({
@@ -131,20 +138,26 @@ const filtersPureFunctions = {
   },
   erosion:{
     filterFunction:erosion,
-    filterFunctionOptions:{
-      notPutImage:true
-    }
+
   },
   dilation:{
     filterFunction:dilation,
-    filterFunctionOptions:{
-      notPutImage:true
-    }
+
   },
   abertura:{
     filterFunction:abertura,
+
+  },
+  closing:{
+    filterFunction:closing,
+  },
+  hitOrMissTransformation:{
+    filterFunction:hitOrMissTransformation
+  },
+  detectionBorders:{
+    filterFunction:detectionBorders,
     filterFunctionOptions:{
-      notPutImage:true
+      notBinary:true
     }
   }
 };
@@ -184,6 +197,5 @@ const filter = {
 export function getDataImage({ type, typeFunction }) {
   width = canvas.width;
   height = canvas.height;
-  // filter[type]({ type: 'erosion' });
   filter[type]({ type: typeFunction });
 }

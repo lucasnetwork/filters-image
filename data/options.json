@@ -110,5 +110,26 @@
       "type": "openCV",
       "typeFunction": "extracao"
     }
-  } 
+  }, 
+    "name": "Fechamento",
+    "value": {
+      "type": "newPureFunctions",
+      "typeFunction": "closing"
+    }
+  },
+  {
+    "name": "Transformada hit-or-miss",
+    "value": {
+      "type": "newPureFunctions",
+      "typeFunction": "hitOrMissTransformation"
+    }
+  },
+  {
+    "name":"Deteção de bordas",
+    "value":{
+      "type":"newPureFunctions",
+      "typeFunction":"detectionBorders"
+    }
+  }
+
 ]
