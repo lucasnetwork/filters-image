@@ -110,6 +110,13 @@
       "type": "newPureFunctions",
       "typeFunction": "closing"
     }
+  },
+  {
+    "name": "Transformada hit-or-miss",
+    "value": {
+      "type": "newPureFunctions",
+      "typeFunction": "hitOrMissTransformation"
+    }
   }
   
 ]

@@ -21,6 +21,8 @@ import { erosion } from "./functions/morfologico/erosion.js";
 import { dilation } from "./functions/morfologico/dilation.js";
 import { abertura } from "./functions/morfologico/abertura.js";
 import { closing } from "./functions/morfologico/closing.js";
+import { hitOrMissTransformation } from "./functions/morfologico/hitOrMissTransformation.js";
+
 const canvas = document.getElementById("canvas");
 const canvas2 = document.getElementById("canvas2");
 const context = canvas.getContext("2d");
@@ -143,6 +145,9 @@ const filtersPureFunctions = {
   },
   closing:{
     filterFunction:closing,
+  },
+  hitOrMissTransformation:{
+    filterFunction:hitOrMissTransformation
   }
 };
 
