@@ -145,6 +145,7 @@ const filtersPureFunctions = {
   },
   abertura:{
     filterFunction:abertura,
+    filterFunctionOptions:{}
 
   },
   closing:{
