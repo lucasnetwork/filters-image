@@ -7,7 +7,7 @@ import cv2;
 import numpy as np;
 
 # creating a Flask app
-UPLOAD_FOLDER = '/uploads'
+UPLOAD_FOLDER = './static/uploads'
 app = Flask(__name__,template_folder='./static/pages',static_folder='./static')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -84,10 +84,10 @@ def region_growing(img, seed):
 def upload_file():
     if request.method == 'POST':
             file = request.files['file']
-            file.save(os.path.join("uploads", file.filename))
+            file.save(os.path.join("./static/uploads", file.filename))
 
 
-            im_in = cv2.imread("uploads/"+file.filename, cv2.IMREAD_GRAYSCALE);
+            im_in = cv2.imread("./static/uploads/"+file.filename, cv2.IMREAD_GRAYSCALE);
 
 
             th, im_th = cv2.threshold(im_in, 220, 255, cv2.THRESH_BINARY);
@@ -101,8 +101,8 @@ def upload_file():
             im_floodfill_inv = cv2.bitwise_not(im_floodfill)
 
             im_out = im_th | im_floodfill_inv
-            cv2.imwrite('uploads/img.png', im_out)
-            return "../backend/uploads/img.png"
+            cv2.imwrite('./static/uploads/img.png', im_out)
+            return "static/uploads/img.png"
 
 
 

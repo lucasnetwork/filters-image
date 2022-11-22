@@ -131,6 +131,13 @@
       "type":"newPureFunctions",
       "typeFunction":"detectionBorders"
     }
+  },
+    {
+    "name":"preenchimento de buracos",
+    "value":{
+      "type":"python",
+      "typeFunction":"preenchimento"
+    }
   }
 
 ]

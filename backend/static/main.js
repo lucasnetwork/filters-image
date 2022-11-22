@@ -86,6 +86,22 @@ function templateFilterImageByPureFunctionsWithDrawCanvas({
     });
 }
 
+function processImageByBackend(type){
+  
+  canvas.toBlob(blob =>{
+    const formData = new FormData();
+    formData.append('file', blob, 'filename.png');
+    
+    axios.post(`/${type}`, formData).then((response)=>{
+      const imageObj = new Image();
+      imageObj.onload = function () {
+        context2.drawImage(imageObj, 0, 0);
+      };
+      imageObj.src = response.data;
+    });
+  })
+}
+
 const filtersPureFunctions = {
   negative: {
     filterFunction: transformImageFor,
@@ -196,6 +212,9 @@ const filter = {
   },
   newPureFunctions:({type})=>{
     templateFilterImageByPureFunctionsWithDrawCanvas(filtersPureFunctions[type])
+  },
+  python:({type})=>{
+    processImageByBackend(type)
   }
 };
 
