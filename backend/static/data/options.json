@@ -138,6 +138,27 @@
       "type":"python",
       "typeFunction":"preenchimento"
     }
+  },
+  {
+    "name":"Metodo otsu",
+    "value":{
+      "type":"python",
+      "typeFunction":"otsu"
+    }
+  },
+  {
+    "name":"Crescimento de Regiao",
+    "value":{
+      "type":"python",
+      "typeFunction":"crescimentoRegiao"
+    }
+  },
+  {
+    "name":"watershed",
+    "value":{
+      "type":"python",
+      "typeFunction":"watershed"
+    }
   }
 
 ]

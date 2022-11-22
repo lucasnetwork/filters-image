@@ -104,8 +104,6 @@ def upload_file():
             cv2.imwrite('./static/uploads/img.png', im_out)
             return "static/uploads/img.png"
 
-
-
 @app.route('/hitOrMiss', methods=['POST'])
 def hitOrMiss():
     file = request.files['file']
@@ -119,8 +117,6 @@ def hitOrMiss():
     cv2.imwrite("uploads/close"+file.filename, im_in)
 
     return "../backend/uploads/img12121.png"
-
-
     
 @app.route('/conexao', methods=['POST'])
 def conexao():
@@ -173,36 +169,35 @@ def medias():
 def otsu():
     if request.method == 'POST':
         file = request.files['file']
-        file.save(os.path.join("uploads", file.filename))
-        im_in = cv2.imread("uploads/"+file.filename);
+        file.save(os.path.join("./static/uploads", file.filename))
+        im_in = cv2.imread("./static/uploads/"+file.filename);
         gray = cv2.cvtColor(im_in, cv2.COLOR_BGR2GRAY)
         blur = cv2.GaussianBlur(gray,(5,5),0)
         ret3,th3 = cv2.threshold(blur,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
-        cv2.imwrite('uploads/img.png', th3)
+        cv2.imwrite('./static/uploads/img.png', th3)
 
-        return "../backend/uploads/img.png"
+        return "./static/uploads/img.png"
 
 @app.route('/crescimentoRegiao', methods=['POST'])
 def crescimentoRegiao():
     boxes = []
     file = request.files['file']
-    file.save(os.path.join("uploads", file.filename))
+    file.save(os.path.join("./static/uploads", file.filename))
 
-    img = cv2.imread("uploads/"+file.filename, 0)
+    img = cv2.imread("./static/uploads/"+file.filename, 0)
 
     resized = cv2.resize(img, (256, 256))
     seed = (100, 100)
     segmented_img = region_growing(resized, seed)
-    cv2.imwrite("uploads/crescimetoRegiao"+file.filename, segmented_img)
-    return "../backend/uploads/img12121.png"
-
+    cv2.imwrite("./static/uploads/crescimetoRegiao.png", segmented_img)
+    return "./static/uploads/crescimetoRegiao.png"
 
 @app.route('/watershed', methods=['POST'])
 def watershed():
     file = request.files['file']
-    file.save(os.path.join("uploads", file.filename))
+    file.save(os.path.join("./static/uploads", file.filename))
 
-    img = cv2.imread("uploads/"+file.filename, 0)
+    img = cv2.imread("./static/uploads/"+file.filename, 0)
 
     ret, thresh = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY_INV +
                                 cv2.THRESH_OTSU)
@@ -233,8 +228,8 @@ def watershed():
 
     img[markers == -1] = [255, 0, 0]
 
-    cv2.imwrite("uploads/watershed"+file.filename, img)
-    return "../backend/uploads/img12121.png"
+    cv2.imwrite("./static/uploads/watershed.png", img)
+    return "./static/uploads/watershed.png"
 
 @app.route("/")
 def page():
