@@ -137,10 +137,12 @@ const filtersPureFunctions = {
     filterFunction: averageSmoothingFilter,
   },
   erosion:{
+    filterFunctionOptions:{},
     filterFunction:erosion,
 
   },
   dilation:{
+    filterFunctionOptions:{},
     filterFunction:dilation,
 
   },
@@ -153,7 +155,9 @@ const filtersPureFunctions = {
     filterFunction:closing,
   },
   hitOrMissTransformation:{
-    filterFunction:hitOrMissTransformation
+    filterFunction:hitOrMissTransformation,
+    filterFunctionOptions:{},
+
   },
   detectionBorders:{
     filterFunction:detectionBorders,

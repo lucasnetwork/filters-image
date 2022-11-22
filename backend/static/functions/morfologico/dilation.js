@@ -10,7 +10,7 @@ export function dilationFunction({currentPixel,context,getMiddleMask,getMiddleMa
             for(let j=0; j < mask[i].length;j++){
                 const newX =i-getMiddleMask.position
                 const newY = j-getMiddleMaskInto.position
-                const currentPixelLeftCenter =(newX+imagePositionX < 0 || newY+imagePositionY < 0 || newY+ imagePositionY > context.height || newX+imagePositionX > context.width) ? {data:[255]}:context.getImageData(imagePositionX+newX, imagePositionY+newY, 1, 1);
+                const currentPixelLeftCenter =(newX+imagePositionX < 0 || newY+imagePositionY < 0 || newY+ imagePositionY > context.height || newX+imagePositionX > context.width) ? {data:[0]}:context.getImageData(imagePositionX+newX, imagePositionY+newY, 1, 1);
                 
                 if(currentPixelLeftCenter.data[0] === 255 && mask[i][j] ===1){
                     allfill = true

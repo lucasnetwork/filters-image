@@ -127,14 +127,14 @@ export function detectionBorders({width,height,canvas,mask=MASK,data}){
     const context = canvas3.getContext("2d", { willReadFrequently: true })
     const currentPixel = canvas.getImageData(0, 0, width, height);
     let absolutePixel = 40
-    //   for(let i=0;i < currentPixel.data.length;i+=4){
-    //     if(currentPixel.data[i] > absolutePixel){
-    //         absolutePixel = currentPixel.data[i]
-    //     }
-    // }
+      for(let i=0;i < currentPixel.data.length;i+=4){
+        if(currentPixel.data[i] > absolutePixel){
+            absolutePixel = currentPixel.data[i]
+        }
+    }
     context.putImageData(currentPixel,0,0)
+    // mappingImagePixelsAndFillPixel({width,height,context,canvas,callback:detectionBordersFunctionRobert,mask,absolutePixel})
     mappingImagePixelsAndFillPixel({width,height,context,canvas,callback:detectionBordersFunctionRobert,mask,absolutePixel})
-    mappingImagePixelsAndFillPixel({width,height,context,canvas,callback:detectionBordersFunctionLaplacian,mask,absolutePixel})
 
 
 }
