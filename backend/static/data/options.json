@@ -161,24 +161,31 @@
     }
   },
   {
-    "name":"Metodo otsu",
-    "value":{
-      "type":"python",
-      "typeFunction":"otsu"
+    "name": "Metodo otsu",
+    "value": {
+      "type": "python",
+      "typeFunction": "otsu"
     }
   },
   {
-    "name":"Crescimento de Regiao",
-    "value":{
-      "type":"python",
-      "typeFunction":"crescimentoRegiao"
+    "name": "Crescimento de Regiao",
+    "value": {
+      "type": "python",
+      "typeFunction": "crescimentoRegiao"
     }
   },
   {
-    "name":"watershed",
-    "value":{
-      "type":"python",
-      "typeFunction":"watershed"
+    "name": "watershed",
+    "value": {
+      "type": "python",
+      "typeFunction": "watershed"
+    }
+  },
+  {
+    "name": "Transformada de Hough",
+    "value": {
+      "type": "python",
+      "typeFunction": "transformadaHough"
     }
   }
 ]
