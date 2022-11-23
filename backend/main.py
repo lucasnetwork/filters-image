@@ -102,11 +102,9 @@ def upload_file():
 
         im_floodfill_inv = cv2.bitwise_not(im_floodfill)
 
-
         im_out = im_th | im_floodfill_inv
         cv2.imwrite('./static/uploads/img.png', im_out)
         return "static/uploads/img.png"
-
 
 
 @app.route('/hitOrMiss', methods=['POST'])
@@ -122,9 +120,7 @@ def hitOrMiss():
 
     cv2.imwrite('./static/uploads/img.png', im_in)
 
-
     return "static/uploads/img.png"
-
 
 
 @app.route('/conexao', methods=['POST'])
@@ -180,12 +176,12 @@ def otsu():
         file = request.files['file']
 
         file.save(os.path.join("./static/uploads", file.filename))
-        im_in = cv2.imread("./static/uploads/"+file.filename);
+        im_in = cv2.imread("./static/uploads/"+file.filename)
         gray = cv2.cvtColor(im_in, cv2.COLOR_BGR2GRAY)
-        blur = cv2.GaussianBlur(gray,(5,5),0)
-        ret3,th3 = cv2.threshold(blur,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+        blur = cv2.GaussianBlur(gray, (5, 5), 0)
+        ret3, th3 = cv2.threshold(
+            blur, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
         cv2.imwrite('./static/uploads/img.png', th3)
-
 
         return "./static/uploads/img.png"
 
@@ -203,6 +199,7 @@ def crescimentoRegiao():
     segmented_img = region_growing(resized, seed)
     cv2.imwrite("./static/uploads/crescimetoRegiao.png", segmented_img)
     return "./static/uploads/crescimetoRegiao.png"
+
 
 @app.route('/watershed', methods=['POST'])
 def watershed():
@@ -242,6 +239,37 @@ def watershed():
 
     cv2.imwrite("./static/uploads/watershed.png", img)
     return "./static/uploads/watershed.png"
+
+
+@app.route('/transformadaHough', methods=['POST'])
+def transformHough():
+
+    file = request.files['file']
+    file.save(os.path.join("./static/uploads", file.filename))
+
+    img = cv2.imread("./static/uploads/"+file.filename,
+                     cv2.IMREAD_GRAYSCALE)  # road.png is the filename
+    # Convert the image to gray-scale
+    gray = cv2.cvtColor(img, cv2.IMREAD_GRAYSCALE)
+    # Find the edges in the image using canny detector
+
+    edges = cv2.Canny(gray, 50, 200)
+    # edges = cv2.Canny(gray, 50, 200)
+    # Detect points that form a line
+    lines = cv2.HoughLinesP(edges, 1, np.pi/180, 90,
+                            minLineLength=10, maxLineGap=250)
+    # lines = cv2.HoughLinesP(edges, 1, np.pi/180, 100, minLineLength=10,
+    # maxLineGap=250)
+
+    # Draw lines on the image
+    for line in lines:
+        x1, y1, x2, y2 = line[0]
+        result = cv2.line(img, (x1, y1), (x2, y2), (255, 0, 0), 3)
+     # Show result
+
+    cv2.imwrite('./static/uploads/img.png', result)
+
+    return "static/uploads/img.png"
 
 
 @app.route("/")
