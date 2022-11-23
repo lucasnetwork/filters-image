@@ -110,7 +110,7 @@
       "type": "openCV",
       "typeFunction": "extracao"
     }
-  }, 
+  },
   {
     "name": "Fechamento",
     "value": {
@@ -126,17 +126,38 @@
     }
   },
   {
-    "name":"Deteção de bordas",
-    "value":{
-      "type":"newPureFunctions",
-      "typeFunction":"detectionBorders"
+    "name": "Deteção de bordas",
+    "value": {
+      "type": "newPureFunctions",
+      "typeFunction": "detectionBorders"
     }
   },
-    {
-    "name":"preenchimento de buracos",
-    "value":{
-      "type":"python",
-      "typeFunction":"preenchimento"
+  {
+    "name": "preenchimento de buracos",
+    "value": {
+      "type": "python",
+      "typeFunction": "preenchimento"
+    }
+  },
+  {
+    "name": "Hit or miss",
+    "value": {
+      "type": "python",
+      "typeFunction": "hitOrMiss"
+    }
+  },
+  {
+    "name": "Conexão",
+    "value": {
+      "type": "python",
+      "typeFunction": "conexao"
+    }
+  },
+  {
+    "name": "Médias móveis",
+    "value": {
+      "type": "python",
+      "typeFunction": "medias"
     }
   },
   {
@@ -160,5 +181,4 @@
       "typeFunction":"watershed"
     }
   }
-
 ]

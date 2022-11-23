@@ -1,20 +1,20 @@
 # Using flask to make an api
 import os
 # import necessary libraries and functions
-from flask import Flask, jsonify, request,render_template
-from werkzeug.utils import secure_filename
-import cv2;
-import numpy as np;
+from flask import Flask, request, render_template
+import cv2
+import numpy as np
 
 # creating a Flask app
 UPLOAD_FOLDER = './static/uploads'
-app = Flask(__name__,template_folder='./static/pages',static_folder='./static')
+app = Flask(__name__, template_folder='./static/pages',
+            static_folder='./static')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # on the terminal type: curl http://127.0.0.1:5000/
 # returns hello world when we use GET.
 # returns the data that we send when we use POST.
-  
+
 # A simple function to calculate the square of a number
 # the number to be squared is sent in the URL when we use GET
 # on the terminal type: curl http://127.0.0.1:5000 / home / 10
@@ -40,15 +40,18 @@ def region_growing(img, seed):
     # Initialize segmented output image
     segmented_img = np.zeros((height, width, 1), np.uint8)
 
-    # Region growing until intensity difference becomes greater than certain threshold
-    while (intensity_difference < region_threshold) & (region_size < image_size):
+    # Region growing until intensity difference becomes greater than certain
+    #  threshold
+    while (intensity_difference < region_threshold) & (region_size
+                                                       < image_size):
         # Loop through neighbor pixels
         for i in range(4):
             # Compute the neighbor pixel position
             x_new = seed[0] + neighbors[i][0]
             y_new = seed[1] + neighbors[i][1]
 
-            # Boundary Condition - check if the coordinates are inside the image
+            # Boundary Condition - check if the coordinates are
+            # inside the image
             check_inside = (x_new >= 0) & (y_new >= 0) & (
                 x_new < height) & (y_new < width)
 
@@ -79,96 +82,103 @@ def region_growing(img, seed):
     return segmented_img
 
 
-
 @app.route('/preenchimento', methods=['POST'])
 def upload_file():
     if request.method == 'POST':
-            file = request.files['file']
-            file.save(os.path.join("./static/uploads", file.filename))
+        file = request.files['file']
+
+        file.save(os.path.join("./static/uploads", file.filename))
+
+        im_in = cv2.imread("./static/uploads/" +
+                           file.filename, cv2.IMREAD_GRAYSCALE)
+
+        th, im_th = cv2.threshold(im_in, 220, 255, cv2.THRESH_BINARY)
+
+        im_floodfill = im_th.copy()
+        h, w = im_th.shape[:2]
+        mask = np.zeros((h+2, w+2), np.uint8)
+
+        cv2.floodFill(im_floodfill, mask, (0, 0), 255)
+
+        im_floodfill_inv = cv2.bitwise_not(im_floodfill)
 
 
-            im_in = cv2.imread("./static/uploads/"+file.filename, cv2.IMREAD_GRAYSCALE);
+        im_out = im_th | im_floodfill_inv
+        cv2.imwrite('./static/uploads/img.png', im_out)
+        return "static/uploads/img.png"
 
 
-            th, im_th = cv2.threshold(im_in, 220, 255, cv2.THRESH_BINARY);
-
-            im_floodfill = im_th.copy()
-            h, w = im_th.shape[:2]
-            mask = np.zeros((h+2, w+2), np.uint8)
-
-            cv2.floodFill(im_floodfill, mask, (0,0), 255)
-
-            im_floodfill_inv = cv2.bitwise_not(im_floodfill)
-
-            im_out = im_th | im_floodfill_inv
-            cv2.imwrite('./static/uploads/img.png', im_out)
-            return "static/uploads/img.png"
 
 @app.route('/hitOrMiss', methods=['POST'])
 def hitOrMiss():
     file = request.files['file']
-    file.save(os.path.join("uploads", file.filename))
+    file.save(os.path.join("./static/uploads", file.filename))
 
-    im_in = cv2.imread("uploads/"+file.filename, cv2.IMREAD_GRAYSCALE)
+    im_in = cv2.imread("./static/uploads/" +
+                       file.filename, cv2.IMREAD_GRAYSCALE)
 
     kernel = np.ones((5, 5), np.uint8)
     im_in = cv2.morphologyEx(im_in, cv2.MORPH_CLOSE, kernel)
 
-    cv2.imwrite("uploads/close"+file.filename, im_in)
+    cv2.imwrite('./static/uploads/img.png', im_in)
 
-    return "../backend/uploads/img12121.png"
-    
+
+    return "static/uploads/img.png"
+
+
+
 @app.route('/conexao', methods=['POST'])
 def conexao():
     if request.method == 'POST':
         file = request.files['file']
-        file.save(os.path.join("uploads", file.filename))
+        file.save(os.path.join("./static/uploads", file.filename))
 
+        im_in = cv2.imread("./static/uploads/"+file.filename)
 
-        im_in = cv2.imread("uploads/"+file.filename);
+        gray_img = cv2.cvtColor(im_in, cv2.COLOR_BGR2GRAY)
 
-        
-        gray_img = cv2.cvtColor(im_in , cv2.COLOR_BGR2GRAY)
-        
         blurred = cv2.GaussianBlur(gray_img, (7, 7), 0)
         threshold = cv2.threshold(blurred, 0, 255,
-            cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
-        
+                                  cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
+
         analysis = cv2.connectedComponentsWithStats(threshold,
                                                     4,
                                                     cv2.CV_32S)
         (totalLabels, label_ids, values, centroid) = analysis
-        
+
         output = np.zeros(gray_img.shape, dtype="uint8")
-        
+
         for i in range(1, totalLabels):
             componentMask = (label_ids == i).astype("uint8") * 255
             output = cv2.bitwise_or(output, componentMask)
-        cv2.imwrite('uploads/img.png', output)
+        cv2.imwrite('./static/uploads/img.png', output)
 
-        return "../backend/uploads/img.png"
-  
+        return "static/uploads/img.png"
+
+
 @app.route('/medias', methods=['POST'])
 def medias():
     if request.method == 'POST':
 
         file = request.files['file']
-        file.save(os.path.join("uploads", file.filename))
+        file.save(os.path.join("./static/uploads", file.filename))
 
-
-        im_in = cv2.imread("uploads/"+file.filename);
+        im_in = cv2.imread("./static/uploads/"+file.filename)
         gray = cv2.cvtColor(im_in, cv2.COLOR_BGR2GRAY)
-        im_in = cv2.medianBlur(gray,5)
-        th3 = cv2.adaptiveThreshold(im_in,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,11,2)
+        im_in = cv2.medianBlur(gray, 5)
+        th3 = cv2.adaptiveThreshold(
+            im_in, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
 
-        cv2.imwrite('uploads/img.png', th3)
+        cv2.imwrite('./static/uploads/img.png', th3)
 
-        return "../backend/uploads/img.png"
+        return "static/uploads/img.png"
+
 
 @app.route('/otsu', methods=['POST'])
 def otsu():
     if request.method == 'POST':
         file = request.files['file']
+
         file.save(os.path.join("./static/uploads", file.filename))
         im_in = cv2.imread("./static/uploads/"+file.filename);
         gray = cv2.cvtColor(im_in, cv2.COLOR_BGR2GRAY)
@@ -176,7 +186,9 @@ def otsu():
         ret3,th3 = cv2.threshold(blur,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
         cv2.imwrite('./static/uploads/img.png', th3)
 
+
         return "./static/uploads/img.png"
+
 
 @app.route('/crescimentoRegiao', methods=['POST'])
 def crescimentoRegiao():
@@ -231,11 +243,13 @@ def watershed():
     cv2.imwrite("./static/uploads/watershed.png", img)
     return "./static/uploads/watershed.png"
 
+
 @app.route("/")
 def page():
     return render_template("index.html")
 
+
 # driver function
 if __name__ == '__main__':
-  
-    app.run(debug = True)
+
+    app.run(debug=True)
